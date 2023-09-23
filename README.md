@@ -8,9 +8,11 @@ microservices, TDD, Pairing, Trunk based development, DevSecFinOps, agility over
 My career has evolved in 6 parts. I believe that describing this journey along with links to examples of my work is the best way to communicate it.
 
 # Part 1: High throughput, low latency, distrbuted, event driven data
-<img  width="290" src='images/rocket.png' style='float:left; margin-right:20px'>
+<img  width="260" src='images/rocket.png' style='float:left; margin-right:20px'>
 
 I joined a sports betting tech company startup with 30 people in a warehouse in Kentish Town, and 13 years later, I left with the company having 1000+ people across global offices, having watched it float on the NY stock exchange for $1.5 billion. While coding, architecting, and leading teams, we built distributed systems processing over one hundred thousand messages a second with latencies ranging from sub-second to nanoseconds. I wrote about how I grew to learn both [mechanical and human sympathy here](https://medium.com/@jameskinnahbrown/sympathy-an-essential-ingredient-to-our-microservice-strategy-554d22f0c98e). Our data platforms were industry-leading and our agility made us one of the most competitive sports data tech companies in the world. We valued simplicity over complexity, collaboration over process, experimentation with a fail-fast/learn-early attitude, and a dedication to engineering excellence. My team's systems consistently exceeded expectations, and most of them still run today, powering the backend for many well-known sports betting platforms.
+
+<br>
 
 Our secret sauce:
 
@@ -68,3 +70,6 @@ Taking my experience of transforming struggling technology companies I took the 
 Our potential secret sauce:
 
 ...I think you can spot a pattern :)
+
+### Generate this cv as a .pdf
+    md2pdf cv.md
