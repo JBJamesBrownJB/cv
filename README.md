@@ -7,7 +7,7 @@ microservices, TDD, Pairing, Trunk based development, DevSecFinOps, agility over
 
 My career has evolved in 6 parts. I believe that describing this journey along with links to examples of my work is the best way to communicate it.
 
-<b>...I am not actively seeking other opportunities</b>
+<b>...I am not actively seeking other opportunities!</b>
 
 # Part 1: High throughput, low latency, distrbuted, event driven data
 <img  width="260" src='images/rocket.png' style='float:left; margin-right:20px'>
