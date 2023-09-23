@@ -7,6 +7,8 @@ microservices, TDD, Pairing, Trunk based development, DevSecFinOps, agility over
 
 My career has evolved in 6 parts. I believe that describing this journey along with links to examples of my work is the best way to communicate it.
 
+<b>...I am not actively seeking other opportunities</b>
+
 # Part 1: High throughput, low latency, distrbuted, event driven data
 <img  width="260" src='images/rocket.png' style='float:left; margin-right:20px'>
 
@@ -50,6 +52,8 @@ I seized a leadership opportunity as Head of Technology for Europe's premier ed-
 
 # Part 5: The City
 Taking my experience of transforming struggling technology companies I took the opportunity to practice it in a 200 year old bank, an asset management company with over $600 billion AUM, because what could be harder? Schroders are looking for an ambitious transformation of their engineering culture, organisation and approach. Joining the Enterprise team we look to steer them to a dynamic vibrant technology future...I can't talk about it much more than that as it is in-progress and sensetive.
+
+<b>...I am not currently actively seeking other opportunities</b>
 
 ### Generate this cv as a .pdf
     cat README.md | md2pdf > JB_CV.pdf
