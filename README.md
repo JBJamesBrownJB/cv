@@ -47,8 +47,6 @@ I seized a leadership opportunity as Head of Technology for Europe's premier ed-
     TDD, Pairing, Product-Led Autonomous Teams, Continuous Deployment, DORA metrics driven, Trunk based development, Data Mesh
 
 <br><br>
-<br><br>
-<br><br>
 
 # Part 5: The City
 Taking my experience of transforming struggling technology companies I took the opportunity to practice it in a 200 year old bank, an asset management company with over $600 billion AUM, because what could be harder? Schroders are looking for an ambitious transformation of their engineering culture, organisation and approach. Joining the Enterprise team we look to steer them to a dynamic vibrant technology future...I can't talk about it much more than that as it is in-progress and sensetive.
