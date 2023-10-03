@@ -38,7 +38,7 @@ Now in its fourth iteration, the project continues to add value to research team
 
 While I may not yet see myself as an exceptional speaker, attendees often find my talks engaging, if not entertaining.
 
-<br><br>
+<br>
 
 # Part 4: ThoughtWorks Leader
 I seized a leadership opportunity as Head of Technology for Europe's premier ed-tech company, aiming to reinvigorate its market presence. With a team of 200 developers, they hadn't launched a new product in 8 years, and they were seeing a decline in their 75% market share by 10% annually. Within a year, we launched their first new product to rave reviews. By 18 months, we had rolled out four more products, all supported by a dynamic distributed data platform that seamlessly integrated cloud and on-premise school systems in real-time. By employing ThoughtWorks' emerging Data-Mesh strategy, we brought innovative solutions that began addressing the challenges of cross-school data analytics. Our system, built on my past experiences, operated in real-time, challenging the competition's batch-based systems. When I departed, seven autonomous product-led teams, each with elite DORA metrics, were rapidly delivering new features and collaborating on a shared data strategy to form an emerging foundational internal platform, further accelerating value delivery.
@@ -46,7 +46,7 @@ I seized a leadership opportunity as Head of Technology for Europe's premier ed-
 
     TDD, Pairing, Product-Led Autonomous Teams, Continuous Deployment, DORA metrics driven, Trunk based development, Data Mesh
 
-<br><br>
+<br>
 
 # Part 5: The City
 Taking my experience of transforming struggling technology companies I took the opportunity to practice it in a 200 year old bank, an asset management company with over $600 billion AUM, because what could be harder? Schroders are looking for an ambitious transformation of their engineering culture, organisation and approach. Joining the Enterprise team we look to steer them to a dynamic vibrant technology future...I can't talk about it much more than that as it is in-progress and sensetive.
