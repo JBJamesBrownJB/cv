@@ -32,7 +32,7 @@ You can see some of my code [here](https://github.com/JBJamesBrownJB/system-regi
 # Part 2: ThoughtWorks contributor
 <img  width="300" src='images/conf.png' style='float:left; margin-right:20px'>
 
-ThoughtWorks' vibrant community enabled me to establish an [open-source project](https://github.com/BMMRO-tech/BMMRO), crafting an application for marine scientists in the Bahamas to conduct research at sea. An initial team delivered over a million pounds of free technology using React and Firebase, facilitating devices that periodically connect to digitize their workflow. 
+ThoughtWorks' vibrant community enabled me to establish an [open-source project](https://github.com/BMMRO-tech/BMMRO), crafting an application for marine scientists in the Bahamas to conduct research at sea. An initial team delivered over a million pounds of free technology using React and Firebase, facilitating devices that periodically connect to digitize their workflow. You can read and watch about this in more detail [https://www.thoughtworks.com/en-gb/clients/bahamas-marine-mammal-research-organisation](here). 
 <img  width="100" src='images/bmmro.png' style='float:right; margin-top:20px;margin-left:10px'>
 Now in its fourth iteration, the project continues to add value to research teams. Though I never contributed code to this project, I found my strength in delivering not just technology, but teams capable of doing the same. I began speaking at international conferences to enhance my public speaking skills, taking me to places like Morocco, [Sweden](https://youtu.be/kMWQkJ3FAxA?si=tlcfScchmebeeC-e), Norway, London, and [Milan](https://talks.codemotion.com/big-estimates-with-graph-theory?view=true). 
 
