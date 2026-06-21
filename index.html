@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>James Brown — Gardener of emergent systems, human and machine</title>
+<meta name="description" content="James Brown (JB): out-of-the-box engineering leader. Twenty years cultivating living systems — distributed data, autonomous teams, and AI agents — to the point of emergence. A career timeline that ends in speciate: a 760-file artificial-life engine written end-to-end by AI agents." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0A0F11; --bg-2:#0E1518; --panel:#101D20; --panel-2:#14272A;
+    --bone:#ECE6D8; --bone-2:#9FB0AE; --dim:#7E8C8A; --slate:#16242A;
+    --teal:#3FE0C8; --teal-deep:#2BB7A2; --gold:#E8B23A; --gold-deep:#C8902F;
+    --git-green:#3FB950; --human-grey:#56605D; --tw-coral:#f2617a;
+    --line:rgba(236,230,216,0.09); --line-2:rgba(236,230,216,0.16);
+    --maxw:1080px;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--bone);font-family:var(--body);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:#1a1206}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+  .mono{font-family:var(--mono)}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.2,.7,.2,1),transform .65s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===================== HERO ===================== */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
+  #swarm{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+  .hero-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(125% 95% at 80% 20%,rgba(10,15,17,0) 28%,rgba(10,15,17,.6) 70%,rgba(10,15,17,.92) 100%),linear-gradient(90deg,rgba(10,15,17,.93) 0%,rgba(10,15,17,.72) 40%,rgba(10,15,17,.2) 72%)}
+  .hero-inner{position:relative;z-index:2;width:100%}
+  .hero-grid{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+  .kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin:0 0 22px}
+  h1{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.9;font-size:clamp(52px,8.6vw,120px);margin:0}
+  h1 .b{color:var(--gold)}
+  .hero-tag{font-family:var(--display);font-weight:600;letter-spacing:-.02em;font-size:clamp(19px,2.6vw,32px);line-height:1.1;margin:20px 0 0;max-width:20ch}
+  .hero-tag em{font-style:normal;color:var(--teal)}
+  .hero-sub{color:var(--bone-2);max-width:52ch;margin:18px 0 0;font-size:clamp(15px,1.35vw,17.5px)}
+  .hero-sub b{color:var(--bone);font-weight:600}
+  .hook{margin:20px 0 0;padding:13px 16px;border:1px solid var(--line-2);border-left:3px solid var(--teal);border-radius:8px;background:rgba(63,224,200,.05);font-size:15px;max-width:54ch}
+  .hook b{color:var(--teal);font-weight:600}
+  .hook .ratio{font-family:var(--mono);color:var(--bone)}
+  .read-os{display:inline-flex;align-items:center;gap:9px;margin:18px 0 0;padding:11px 17px;border:1px solid var(--gold-deep);border-radius:10px;background:linear-gradient(90deg,rgba(232,178,58,.10),rgba(232,178,58,.02));font-size:14.5px;color:var(--bone);transition:border-color .25s,transform .2s,background .25s}
+  .read-os b{color:var(--gold);font-weight:600}
+  .read-os span{color:var(--gold);font-family:var(--mono);font-size:13px}
+  .read-os:hover{border-color:var(--gold);transform:translateY(-2px);background:linear-gradient(90deg,rgba(232,178,58,.18),rgba(232,178,58,.05))}
+  .read-os:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .hero-anchors{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 0}
+  .anchor{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:10px;padding:11px 15px;background:rgba(0,0,0,.2)}
+  .anchor .v{font-family:var(--display);font-weight:700;font-size:24px;line-height:1}
+  .anchor .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--dim)}
+  .anchor.m .v{color:var(--teal)} .anchor.h .v{color:var(--gold)}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin:22px 0 0;font-family:var(--mono);font-size:11.5px;color:var(--bone-2)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .legend i{width:9px;height:9px;border-radius:50%}
+  .legend .g{background:var(--gold);box-shadow:0 0 8px var(--gold)}
+  .legend .t{background:var(--teal);box-shadow:0 0 8px var(--teal)}
+  .links{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0 0;font-family:var(--mono);font-size:13px}
+  .links a{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--line-2);border-radius:999px;transition:border-color .25s,color .25s}
+  .links a::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);transition:.25s}
+  .links a:hover{border-color:var(--gold);color:#fff}
+  .links a:hover::before{background:var(--gold);box-shadow:0 0 9px var(--gold)}
+  .links a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .portrait{position:relative;width:clamp(116px,14vw,178px);aspect-ratio:1;flex:none}
+  .portrait img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:1px solid var(--line-2)}
+  .portrait::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1px solid var(--teal);opacity:.5;-webkit-mask:radial-gradient(closest-side,transparent 92%,#000 93%);mask:radial-gradient(closest-side,transparent 92%,#000 93%)}
+  .drill{position:absolute;left:26px;bottom:22px;z-index:2;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim);display:flex;align-items:center;gap:9px}
+  .drill:hover{color:var(--teal)}
+  .drill:focus-visible{outline:2px solid var(--teal);outline-offset:4px;border-radius:4px}
+  .drill .bar{width:1px;height:30px;background:linear-gradient(var(--teal),transparent)}
+
+  /* ===================== JOURNEY / SPINE ===================== */
+  .journey{position:relative;padding:70px 0 30px}
+  .journey-head{margin-bottom:18px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:11px;margin:0 0 14px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--teal);opacity:.7}
+  .journey-head h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,3.6vw,40px);letter-spacing:-.02em;margin:0 0 10px;line-height:1.05}
+  .journey-head p{color:var(--bone-2);max-width:60ch;margin:0;font-size:16px}
+
+  .rail{display:grid;grid-template-columns:128px 1fr;gap:0;position:relative}
+  .instruments{position:sticky;top:26px;align-self:start;height:max-content;padding-right:18px;font-family:var(--mono);font-size:11px;line-height:1.5}
+  .instruments .ihead{color:var(--dim);letter-spacing:.12em;margin-bottom:12px;font-size:10px}
+  .instr{display:block;color:var(--slate);border-left:2px solid var(--line);padding:7px 0 7px 11px;margin:0 0 3px;transition:color .4s,border-color .4s}
+  .instr.lit{color:var(--gold);border-color:var(--gold)}
+  .instr .plus{color:var(--teal);opacity:.6}
+  .instr.lit .plus{opacity:1}
+
+  .spine-col{position:relative;padding-left:104px}
+  .gitgraph{position:absolute;left:0;top:0;width:96px;height:100%;overflow:visible;z-index:0;pointer-events:none}
+  .spine{display:none}
+  .station::before{display:none}
+  .tw-era::before,.tw-era .station::before,.tw-era .station::after{display:none}
+  .spine{position:absolute;left:9px;top:0;bottom:0;width:10px;pointer-events:none}
+  .spine .aura{position:absolute;left:50%;top:0;bottom:0;width:120px;transform:translateX(-50%);clip-path:polygon(48% 0,52% 0,86% 100%,14% 100%);background:linear-gradient(180deg,rgba(63,224,200,.0),rgba(63,224,200,.10) 40%,rgba(232,178,58,.16));filter:blur(7px);opacity:.8}
+  .spine .base{position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:2px;background:var(--line-2);border-radius:2px}
+  .spine .fill{position:absolute;left:50%;transform:translateX(-50%);top:0;width:3px;height:0;border-radius:3px;background:linear-gradient(180deg,var(--teal),var(--gold) 70%,var(--gold-deep));box-shadow:0 0 14px rgba(232,178,58,.5)}
+
+  .station{position:relative;padding:0 0 52px 0}
+  .station:last-child{padding-bottom:0}
+  .station::before{content:"";position:absolute;left:-38px;top:6px;width:15px;height:15px;border-radius:50%;background:var(--bg);border:2px solid var(--teal);box-shadow:0 0 0 5px var(--bg);transition:box-shadow .4s,border-color .4s,background .4s;z-index:2}
+  .station.node-gold::before{border-color:var(--gold)}
+  .station.in::before{box-shadow:0 0 0 5px var(--bg),0 0 18px 2px rgba(63,224,200,.55)}
+  .station.node-gold.in::before{box-shadow:0 0 0 5px var(--bg),0 0 20px 3px rgba(232,178,58,.6);background:var(--gold)}
+  .era{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--gold);border:1px solid var(--gold-deep);border-radius:5px;padding:2px 7px;text-transform:uppercase}
+  .station h3{font-family:var(--display);font-weight:700;letter-spacing:-.015em;font-size:clamp(20px,2.5vw,26px);margin:7px 0 4px;line-height:1.1}
+  .metric{font-family:var(--mono);font-size:13px;color:var(--gold);margin:0 0 10px}
+  .metric .t{color:var(--teal)}
+  .ladder{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:5px 0;font-family:var(--mono);font-size:12px}
+  .ladder span{border:1px solid var(--line-2);border-radius:6px;padding:4px 10px;color:var(--bone-2)}
+  .ladder span.top{color:var(--gold);border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold);font-weight:600}
+  .ladder b{color:var(--gold);font-weight:700}
+  .ladder-cap{font-family:var(--mono);font-size:11px;color:var(--dim);margin:0 0 10px}
+  .scopes{display:flex;flex-wrap:wrap;gap:7px;margin:5px 0 9px;font-family:var(--mono);font-size:11.5px}
+  .scopes span{border:1px solid var(--line-2);border-radius:6px;padding:4px 9px;color:var(--bone-2)}
+  .scopes span.hl{color:var(--teal);border-color:rgba(63,224,200,.4)}
+  .era-banner.tw{margin:10px 0 28px;padding:16px 0 15px;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line)}
+  .tw-mark{display:flex;align-items:center}
+  .tw-plate{display:inline-flex;background:#F4F1EA;padding:11px 17px;border-radius:9px;box-shadow:0 2px 14px rgba(0,0,0,.28)}
+  .tw-logo{height:26px;width:auto;display:block}
+  .tw-cred{display:inline-flex;align-items:center;gap:11px;margin:18px 0 0}
+  .tw-cred .tw-plate{padding:7px 11px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+  .tw-cred .tw-logo{height:16px}
+  .tw-cred-txt{font-family:var(--mono);font-size:11.5px;color:var(--bone-2);letter-spacing:.02em}
+  .tw-cred-txt b{color:var(--gold);font-weight:500}
+  .tw-role{font-family:var(--mono);font-size:12.5px;color:var(--bone-2);margin-top:11px}
+  .tw-role b{color:var(--gold)}
+  .tw-note{font-style:italic;font-size:13px;color:var(--dim);margin-top:7px;max-width:62ch}
+  .tw-era{position:relative;margin:8px 0 14px;border-radius:12px;background:linear-gradient(100deg,rgba(242,97,122,.05),rgba(242,97,122,0) 55%)}
+  .tw-era::before{content:"";position:absolute;left:-16px;top:10px;bottom:14px;width:2px;border-radius:2px;background:var(--tw-coral);opacity:.5}
+  .tw-era .station::before{left:-16px;border-color:var(--tw-coral)!important}
+  .tw-era .station.in::before{box-shadow:0 0 0 5px var(--bg),0 0 15px 2px rgba(242,97,122,.55)!important;background:var(--tw-coral)!important}
+  .tw-era .station::after{content:"";position:absolute;left:-16px;top:12px;width:14px;height:2px;background:var(--tw-coral);opacity:.55}
+  .tw-also{font-family:var(--mono);font-size:12px;color:var(--bone-2);margin:8px 0 6px;padding-left:4px}
+  .tw-also b{color:var(--tw-coral)}
+  /* git vocabulary */
+  .gref{font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;color:var(--teal);border:1px solid rgba(63,224,200,.32);border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .gref.coral{color:var(--tw-coral);border-color:rgba(242,97,122,.42)}
+  .gref.head{color:#0b0f10;background:var(--gold);border-color:var(--gold);font-weight:600}
+  .station.commit::before{width:10px;height:10px;background:var(--bg);border-color:var(--teal);top:7px}
+  .station.commit.root::before{border-color:var(--gold);border-style:dashed}
+  .station.commit{padding-bottom:30px}
+  .commit-line{font-family:var(--body);font-size:14.5px;color:var(--bone-2);margin:3px 0 0;max-width:62ch}
+  .commit-line b{color:var(--bone)}
+  .commit-sub{font-family:var(--mono);font-size:11px;color:var(--dim);margin:3px 0 0}
+  .main-tag{font-family:var(--mono);font-size:10.5px;color:var(--gold);letter-spacing:.08em;margin:0 0 16px;padding-left:2px}
+  .station.origin{padding-bottom:30px}
+  .station.origin::before{width:11px;height:11px;top:5px}
+  .origin-line{margin:5px 0 0;color:var(--bone-2);font-size:14px;font-style:italic;max-width:60ch}
+  .station p{margin:0;color:var(--bone-2);font-size:15.5px;max-width:60ch}
+  .station p b{color:var(--bone);font-weight:600}
+  .forged{margin:11px 0 0;font-style:italic;color:var(--bone);font-size:14.5px}
+  .forged::before{content:"forged ";font-style:normal;font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.05em;text-transform:uppercase;margin-right:6px}
+  .annot{margin:12px 0 0;font-family:var(--mono);font-size:12px;color:var(--teal);opacity:.85;border-left:2px solid rgba(63,224,200,.35);padding-left:11px}
+  .ctas{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 0}
+  .cta{font-family:var(--mono);font-size:12px;border:1px solid var(--line-2);border-radius:8px;padding:8px 13px;display:inline-flex;gap:7px;align-items:center;transition:border-color .25s,color .25s}
+  .cta.film{border-color:rgba(232,178,58,.4);color:var(--gold)}
+  .cta.film:hover{border-color:var(--gold);color:#fff}
+  .cta.code{border-color:rgba(63,224,200,.4);color:var(--teal)}
+  .cta.code:hover{border-color:var(--teal);color:#fff}
+  .cta:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+  .cta.talk,.cta.product{border-color:rgba(232,178,58,.4);color:var(--gold)}
+  .cta.talk:hover,.cta.product:hover{border-color:var(--gold);color:#fff}
+  .cta.essay{border-color:rgba(63,224,200,.4);color:var(--teal)}
+  .cta.essay:hover{border-color:var(--teal);color:#fff}
+  .src{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.02em;font-style:normal;color:var(--teal);border:1px solid var(--line-2);border-radius:5px;padding:0 6px;margin-left:7px;white-space:nowrap;vertical-align:middle;transition:border-color .2s,color .2s}
+  .src::before{content:"↗ "}
+  .src:hover{border-color:var(--teal);color:#fff}
+  .src:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+  /* ===================== CAPSTONE ===================== */
+  .capstone{position:relative;margin-top:6px;border:1px solid var(--line-2);border-radius:16px;overflow:hidden;background:radial-gradient(90% 130% at 88% 0%,rgba(232,178,58,.1),transparent 55%),radial-gradient(80% 120% at 0% 100%,rgba(63,224,200,.09),transparent 55%),var(--panel-2)}
+  .speci{position:relative;height:180px;border-bottom:1px solid var(--line)}
+  #speciate-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .speci-cap{position:absolute;left:16px;bottom:11px;font-family:var(--mono);font-size:11px;color:var(--bone-2);z-index:2}
+  .speci-cap b{color:var(--gold)}
+  .cap-body{padding:26px 28px 30px}
+  .cap-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:14px}
+  .cap-head h3{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:0;line-height:1}
+  .cap-head h3 em{font-style:normal;font-family:var(--mono);font-weight:500;font-size:.5em;color:var(--gold);letter-spacing:0}
+  .repo-link{font-family:var(--mono);font-size:12.5px;color:var(--teal);border:1px solid var(--line-2);border-radius:999px;padding:8px 14px;transition:border-color .25s,color .25s}
+  .repo-link:hover{border-color:var(--teal);color:#fff}
+  .repo-link:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+  .cap-lead{color:var(--bone-2);margin:14px 0 22px;max-width:70ch;font-size:15.5px}
+  .cap-lead b{color:var(--bone);font-weight:600}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 22px}
+  .stat{border:1px solid var(--line);border-radius:11px;padding:15px 16px;background:rgba(8,12,13,.55)}
+  .stat .n{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.8vw,30px);line-height:1;color:var(--gold)}
+  .stat.t .n{color:var(--teal)}
+  .stat .l{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:8px;line-height:1.4}
+  .cap-cols{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:start}
+  .cap-cols p{margin:0 0 13px;color:var(--bone-2);font-size:15px}
+  .cap-cols p b{color:var(--bone);font-weight:600}
+  .cap-cols code{font-family:var(--mono);font-size:.85em;color:var(--teal);background:rgba(63,224,200,.08);padding:2px 6px;border-radius:5px}
+  .diff{border:1px solid var(--line);border-radius:11px;background:rgba(8,12,13,.55);overflow:hidden}
+  .diff .dh{font-family:var(--mono);font-size:11px;color:var(--dim);padding:11px 15px 4px}
+  .diff .row{display:flex;align-items:center;gap:11px;padding:8px 15px;font-family:var(--mono);font-size:12.5px}
+  .diff .who{width:120px;color:var(--bone-2)}
+  .diff .meter{flex:1;height:9px;border-radius:3px;background:rgba(236,230,216,.07);overflow:hidden}
+  .diff .meter i{display:block;height:100%}
+  .diff .agent i{background:var(--git-green)} .diff .human i{background:var(--human-grey)}
+  .diff .v{width:46px;text-align:right}
+  .diff .agent .v{color:var(--git-green)} .diff .human .v{color:var(--bone-2)}
+  .diff .cap{padding:9px 15px 13px;font-family:var(--mono);font-size:10.5px;color:var(--dim);line-height:1.5;border-top:1px solid var(--line)}
+
+  /* ===================== LAB ===================== */
+  .lab{padding:62px 0 68px;border-top:1px solid var(--line);background:var(--bg-2)}
+  .lab .eyebrow{color:var(--gold)}
+  .lab .eyebrow::before{background:var(--gold)}
+  .lab h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.02em;line-height:1.05;margin:0 0 12px}
+  .lab .lede{color:var(--bone-2);max-width:66ch;margin:0 0 28px;font-size:16px}
+  .lab .lede b{color:var(--bone)}
+  .closing-note{font-family:var(--mono);font-size:12.5px;color:var(--dim);margin:6px 0 0;padding-top:6px}
+  .closing-note b{color:var(--teal)}
+
+  /* ===================== FOOTER ===================== */
+  footer{margin-top:64px;padding:60px 0 64px;border-top:1px solid var(--line);background:var(--bg-2)}
+  .foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;align-items:flex-end}
+  .foot-grid h2{font-family:var(--display);font-weight:700;font-size:30px;margin:14px 0 16px;letter-spacing:-.02em}
+  .book{display:flex;gap:14px;align-items:flex-start;max-width:46ch;margin-top:4px}
+  .book-cover{flex:none;display:block;line-height:0;border-radius:4px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.42);transition:transform .2s}
+  .book-cover img{width:60px;height:auto;display:block}
+  .book-cover:hover{transform:translateY(-2px)}
+  .book-cover:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .book-buy{color:var(--gold);font-family:var(--mono);font-size:11.5px;white-space:nowrap;border-bottom:1px solid rgba(232,178,58,.35)}
+  .book-buy:hover{color:#fff;border-color:var(--gold)}
+  .book p{margin:0;font-size:13.5px;color:var(--bone-2)}
+  .book p b{color:var(--bone)}
+  .colophon{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.7;max-width:42ch}
+  .colophon b{color:var(--bone-2);font-weight:500}
+
+  /* ===================== RESPONSIVE ===================== */
+  @media(max-width:820px){
+    .hero-grid{grid-template-columns:1fr} .portrait{display:none}
+    .rail{grid-template-columns:1fr} .instruments{display:none}
+    .spine-col{padding-left:30px} .gitgraph{width:30px}
+    .stats{grid-template-columns:1fr 1fr} .cap-cols{grid-template-columns:1fr;gap:18px}
+    .speci{height:140px}
+    .hero-veil{background:linear-gradient(180deg,rgba(10,15,17,.86),rgba(10,15,17,.58) 48%,rgba(10,15,17,.93))}
+  }
+  @media(max-width:480px){.stats{grid-template-columns:1fr}.anchor .v{font-size:21px}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
+
+  /* ===================== PRINT / PDF (dense, butted, no whitespace) ===================== */
+  @media print{
+    @page{size:A4;margin:11mm}
+    :root{--bg:#fff;--bg-2:#fff;--panel:#fff;--panel-2:#fff;--bone:#16201E;--bone-2:#34423F;--dim:#5d6a67;--slate:#8a938f;--teal:#0D7A6C;--teal-deep:#0b6357;--gold:#9A6A12;--gold-deep:#7c530c;--git-green:#2f8f3f;--human-grey:#8a928f;--tw-coral:#b04a5e;--line:rgba(20,30,28,.16);--line-2:rgba(20,30,28,.3)}
+    body{background:#fff;color:#16201E;font-size:10px;line-height:1.34}
+    #swarm,.hero-veil,.drill,#speciate-canvas,.speci-cap,.tw-cred,.gitgraph{display:none!important}
+    .spine{display:none!important} .station::before{display:none!important}
+    .spine-col{padding-left:0!important;border-left:none!important}
+    /* ---- print: no rails. ThoughtWorks gigs grouped in one chapter panel ---- */
+    .tw-era{margin:10px 0 12px!important;padding:10px 16px 6px!important;border:1px solid #e6cfcf!important;border-left:3px solid var(--tw-coral)!important;border-radius:7px;background:#fbf5f2!important}
+    .tw-era::before{display:none!important}
+    .tw-era #c-ho,.tw-era #c-bmmro,.tw-era #c-sims{margin-left:0!important;padding-left:0!important;border-left:none!important}
+    .tw-era #c-ho,.tw-era #c-bmmro{border-bottom:1px solid #efe2dd;padding-bottom:7px!important;margin-bottom:7px!important}
+    .reveal{opacity:1!important;transform:none!important}
+    /* compact masthead */
+    .hero{min-height:auto;border-bottom:1.5px solid var(--gold);padding:0 0 8px;break-after:avoid}
+    .hero-grid{grid-template-columns:1fr auto;gap:14px;align-items:center}
+    .portrait{display:block;width:74px}
+    h1{font-size:34px}
+    .kicker{margin-bottom:8px;font-size:9px}
+    .hero-tag{font-size:14px;margin-top:6px} .hero-sub{font-size:9.5px;margin-top:7px;max-width:none}
+    .hook{margin-top:9px;padding:6px 9px;font-size:9.5px} .hero-anchors{margin-top:9px;gap:8px}
+    .read-os{margin-top:8px;padding:4px 9px;font-size:9.5px;border-color:var(--gold-deep)}
+    .anchor{padding:6px 9px} .anchor .v{font-size:16px} .legend{margin-top:9px;gap:11px}
+    .links{margin-top:10px;gap:6px} .links a{padding:4px 9px;font-size:9px;border-color:var(--line)}
+    /* journey: KILL the section-level break rule; let it flow, butt the stations */
+    .journey{padding:12px 0 0}
+    .journey-head{margin-bottom:8px} .journey-head h2{font-size:19px} .journey-head p{font-size:9.5px}
+    .rail{grid-template-columns:1fr}
+    .instruments{display:none}
+    .spine-col{padding-left:20px}
+    .spine .aura{display:none}
+    .spine .base{background:var(--gold);width:1.5px;opacity:.5}
+    .spine .fill{display:none}
+    .station{padding-bottom:11px;break-inside:avoid}
+    .station::before{left:-19px;top:4px;width:9px;height:9px;border-width:1.5px;box-shadow:none;background:var(--gold)!important;border-color:var(--gold)!important}
+    .station h3{font-size:14px;margin:3px 0 2px}
+    .metric{font-size:9.5px;margin-bottom:5px}
+    .station p{font-size:9.5px;max-width:none}
+    .forged{font-size:9.5px;margin-top:5px} .annot{font-size:9px;margin-top:5px}
+    .ladder,.scopes{font-size:8.5px;gap:5px;margin:3px 0} .ladder span,.scopes span{padding:2px 6px} .ladder-cap{font-size:8px;margin:0 0 5px}
+    .src{font-size:7.5px;padding:0 4px;border-color:var(--line);margin-left:5px}
+    .era-banner.tw{margin:6px 0 8px;padding:6px 0} .tw-plate{padding:5px 9px;border:1px solid #d9d3c4;box-shadow:none} .tw-logo{height:15px} .tw-role{font-size:9px;margin-top:5px} .tw-note{font-size:8.5px;margin-top:3px}
+    .tw-era{background:#fff!important;border-left:2px solid var(--tw-coral);border-radius:0} .tw-era::before{display:none} .tw-also{font-size:8.5px;margin:4px 0}
+    .ctas{margin-top:7px;gap:6px} .cta{font-size:9px;padding:4px 8px}
+    /* capstone: solid tiles, no white-on-white */
+    .capstone{border-color:var(--line-2);break-inside:avoid;margin-top:4px}
+    .speci{display:none}
+    .cap-body{padding:12px 14px}
+    .cap-head h3{font-size:22px} .cap-head h3 em{font-size:.5em}
+    .cap-lead{font-size:9.5px;margin:7px 0 11px;max-width:none}
+    .stats{grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:11px}
+    .stat{padding:8px 10px;background:#F2EEE2!important;border:1px solid #C9C2B2}
+    .stat .n{font-size:18px} .stat .l{font-size:8px;color:#34423F}
+    .cap-cols{grid-template-columns:1.1fr 1fr;gap:16px} .cap-cols p{font-size:9px;margin-bottom:7px}
+    .diff{background:#F2EEE2!important;border:1px solid #C9C2B2;break-inside:avoid}
+    .diff .cap{font-size:8px;color:#34423F}
+    .lab{padding:9px 0;border-top:1px solid var(--line);background:#fff!important;break-inside:avoid}
+    .lab h2{font-size:16px;margin-bottom:5px} .lab .lede{font-size:9.5px;margin-bottom:8px;max-width:none}
+    .closing-note{font-size:9px;margin-top:4px;padding-top:4px}
+    footer{margin-top:14px;padding:12px 0 0;background:#fff!important;break-inside:avoid}
+    .foot-grid h2{font-size:18px;margin:6px 0 8px}
+    .book-cover img{width:40px} .book p{font-size:9px} .colophon{font-size:8.5px}
+    a{color:inherit}
+    p,li{orphans:3;widows:3}
+  }
+</style>
+</head>
+<body>
+  <!-- ================= HERO ================= -->
+  <header class="hero" id="top">
+    <canvas id="swarm" aria-hidden="true"></canvas>
+    <div class="hero-veil" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <p class="kicker">Engineering leader · systems · product · AI frontier</p>
+            <h1>James <span class="b">Brown</span></h1>
+            <p class="hero-tag">Gardener of <em>emergent systems</em> — human and machine.</p>
+            <p class="hero-sub">I've come to believe good systems aren't built so much as tended. For twenty-odd years I've been lucky to work on <b>living systems — distributed data, autonomous teams, and lately AI agents</b> — usually alongside people sharper than me. You don't force a system to change; you try to be a useful catalyst, and let it find its own shape. Mostly, my craft is <b>leading and scaling the teams</b> — and lately the agents — that do the building: a force-multiplier more than a lone builder.</p>
+            <p class="hook">⌁ Twenty years building high-throughput systems — and the teams behind them. From a sports-betting startup's rise to a <b>$1.5B float</b>, honed at <b>ThoughtWorks</b>, to steering AI &amp; agentic engineering at a <b>$1-trillion</b> asset manager. The story's below; there's a little lab at the end.</p>
+            <div class="tw-cred"><span class="tw-plate"><img class="tw-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDguODEgNjUuNDkiPgogICAgPGRlZnM+CiAgICAgICAgPHN0eWxlPi5jbHMtMXtmaWxsOiNmMjYxN2E7fS5jbHMtMntmaWxsOiMwMDNkNGY7fTwvc3R5bGU+CiAgICA8L2RlZnM+CiAgICA8ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj4KICAgICAgICA8ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPgogICAgICAgICAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMjcuMjEgMCAwIDUzLjQxIDEyLjY0IDUzLjQxIDM5Ljg2IDAgMjcuMjEgMCIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik0xODMuODEsMjEuMzhsLTIuMTgsNC4yN2gtLjEzYTkuNiw5LjYsMCwwLDAtNC00QTEyLjQxLDEyLjQxLDAsMCwwLDE3MiwyMC41MmExMi44NiwxMi44NiwwLDAsMC01LjkxLDEuMywxMi42MSwxMi42MSwwLDAsMC00LjMxLDMuNSwxNS4zMywxNS4zMywwLDAsMC0yLjYzLDUuMDgsMTkuOSwxOS45LDAsMCwwLS45LDZBMjQuNjcsMjQuNjcsMCwwLDAsMTU5LDQyLjZhMTQuNDEsMTQuNDEsMCwwLDAsMi40NSw1LjE0LDExLjczLDExLjczLDAsMCwwLDQuMjcsMy40NywxNCwxNCwwLDAsMCw2LjIsMS4yNywxMywxMywwLDAsMCw1LjU0LTEuMjEsOC42NCw4LjY0LDAsMCwwLDQuMDYtMy43NWguMTJ2NC4yMmMwLDUtMi4zNCw3Ljg2LTcsNy44NnMtNy4xNC0yLTguNDYtMy42NEwxNjMsNjIuMjVzMy42LDMuMjQsMTAuNDEsMy4yNEMxODQuNyw2NS40OSwxOTAsNjAsMTkwLDUxLjM2di0zMFptLTIuNjQsMTguOTNhOC44Nyw4Ljg3LDAsMCwxLTEuNCwyLjgyLDcsNywwLDAsMS0yLjM1LDIsNyw3LDAsMCwxLTMuMjguNzQsNi4yMSw2LjIxLDAsMCwxLTMuNDEtLjg3LDYuOCw2LjgsMCwwLDEtMi4yLTIuMjMsOSw5LDAsMCwxLTEuMTctMy4wNiwxNy4zMSwxNy4zMSwwLDAsMS0uMzUtMy40NCwxNC4zNCwxNC4zNCwwLDAsMSwuNDEtMy40NCw4LjU1LDguNTUsMCwwLDEsMS4zLTIuOTEsNi43LDYuNywwLDAsMSwyLjIzLTIsNi4zOCw2LjM4LDAsMCwxLDMuMTktLjc0LDcuMiw3LjIsMCwwLDEsMy41OS44QTYuNDQsNi40NCwwLDAsMSwxODAsMzAuMTJhOS4zNyw5LjM3LDAsMCwxLDEuMjQsMy4xMywxNy45LDE3LjksMCwwLDEsLjM3LDMuNzRBMTEuNzMsMTEuNzMsMCwwLDEsMTgxLjE3LDQwLjMxWiIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik02Ni41NCw5LjE4VjI1Ljg0aC4xOUExMC4xMywxMC4xMywwLDAsMSw3MSwyMS43OWExMS40NCwxMS40NCwwLDAsMSw1LjA3LTEuMjcsMTUsMTUsMCwwLDEsNS44LDEsOC42OSw4LjY5LDAsMCwxLDMuNTYsMi42NiwxMC40MiwxMC40MiwwLDAsMSwxLjgyLDQuMTUsMjUuODgsMjUuODgsMCwwLDEsLjUzLDUuNDJ2MTkuN0g3OVYzNS4zMmExMS4xNywxMS4xNywwLDAsMC0xLjI0LTUuOTFjLS44Mi0xLjMxLTIuMjktMi00LjM5LTItMi40LDAtNC4xMy43Mi01LjIxLDIuMTRzLTEuNjEsMy43Ny0xLjYxLDdWNTMuNDFINTcuNzVWOS4xOFoiLz4KICAgICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIgogICAgICAgICAgICAgICAgICBkPSJNOTEuNDcsMzAuNDZhMTQuODcsMTQuODcsMCwwLDEsMy4zNC01LjMzLDE1LjIxLDE1LjIxLDAsMCwxLDUuMi0zLjQxLDIwLDIwLDAsMCwxLDEzLjY2LDAsMTQuNTYsMTQuNTYsMCwwLDEsOC41OCw4Ljc0LDE5Ljc1LDE5Ljc1LDAsMCwxLDEuMTgsNywxOS41NCwxOS41NCwwLDAsMS0xLjE4LDYuOTQsMTUuMTUsMTUuMTUsMCwwLDEtMy4zNCw1LjI5QTE0LjYyLDE0LjYyLDAsMCwxLDExMy42Nyw1MywyMC41MiwyMC41MiwwLDAsMSwxMDAsNTNhMTQuNzIsMTQuNzIsMCwwLDEtNS4yLTMuMzgsMTQuODcsMTQuODcsMCwwLDEtMy4zNC01LjI5LDE5LjMyLDE5LjMyLDAsMCwxLTEuMTgtNi45NEExOS41MywxOS41MywwLDAsMSw5MS40NywzMC40NlptOCwxMC43MWE5LjgxLDkuODEsMCwwLDAsMS4yNywzLjI5LDYuNyw2LjcsMCwwLDAsMi4zOCwyLjMyLDcuMjYsNy4yNiwwLDAsMCwzLjcyLjg3LDcuNDIsNy40MiwwLDAsMCwzLjc0LS44N0E2LjY1LDYuNjUsMCwwLDAsMTEzLDQ0LjQ2YTEwLDEwLDAsMCwwLDEuMjctMy4yOSwxOC40NiwxOC40NiwwLDAsMCwuMzctMy43NCwxOS4wNywxOS4wNywwLDAsMC0uMzctMy43OEE5Ljc3LDkuNzcsMCwwLDAsMTEzLDMwLjM2LDcuMDksNy4wOSwwLDAsMCwxMTAuNTcsMjhhNy4zMiw3LjMyLDAsMCwwLTMuNzQtLjg5LDYuNzMsNi43MywwLDAsMC02LjEsMy4yMSw5LjU3LDkuNTcsMCwwLDAtMS4yNywzLjI5LDE5LjA4LDE5LjA4LDAsMCwwLS4zOCwzLjc4QTE4LjQ2LDE4LjQ2LDAsMCwwLDk5LjQ2LDQxLjE3WiIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik0xNDcuNDMsNTMuNDFWNDloLS4xOGE5LjkzLDkuOTMsMCwwLDEtNC4zNCw0LDEyLjg4LDEyLjg4LDAsMCwxLTUuNDUsMS4yMywxNS41NywxNS41NywwLDAsMS01Ljc5LS45Miw4LjI4LDguMjgsMCwwLDEtMy41Ni0yLjY0LDEwLjIzLDEwLjIzLDAsMCwxLTEuODMtNC4xNSwyNS44OCwyNS44OCwwLDAsMS0uNTMtNS40MlYyMS4zOGg4LjhWMzkuNDdhMTEuMjEsMTEuMjEsMCwwLDAsMS4yNCw1LjkycTEuMjMsMS45NSw0LjQsMiwzLjU5LDAsNS4yLTIuMTRjMS4wNy0xLjQyLDEuNjEtMy43NywxLjYxLTdWMjEuMzhoOC43OXYzMloiLz4KICAgICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIgogICAgICAgICAgICAgICAgICBkPSJNMjAyLjA4LDkuMThWMjUuODRoLjE4YTEwLjE5LDEwLjE5LDAsMCwxLDQuMjgtNC4wNSwxMS40NCwxMS40NCwwLDAsMSw1LjA3LTEuMjcsMTUsMTUsMCwwLDEsNS44LDFBOC42OSw4LjY5LDAsMCwxLDIyMSwyNC4xNGExMC41NywxMC41NywwLDAsMSwxLjgzLDQuMTUsMjUuOSwyNS45LDAsMCwxLC41Miw1LjQydjE5LjdoLTguNzlWMzUuMzJhMTEuMjYsMTEuMjYsMCwwLDAtMS4yNC01LjkxcS0xLjI0LTItNC40LTJjLTIuNCwwLTQuMTMuNzItNS4yLDIuMTRzLTEuNjEsMy43Ny0xLjYxLDdWNTMuNDFoLTguOFY5LjE4WiIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik0yOTAuNDYsMzAuNDZBMTQuNjksMTQuNjksMCwwLDEsMjk5LDIxLjcyYTIwLDIwLDAsMCwxLDEzLjY2LDAsMTQuNjMsMTQuNjMsMCwwLDEsOC41OCw4Ljc0LDE5Ljc1LDE5Ljc1LDAsMCwxLDEuMTgsNywxOS41NCwxOS41NCwwLDAsMS0xLjE4LDYuOTQsMTUsMTUsMCwwLDEtMy4zNSw1LjI5QTE0LjQ5LDE0LjQ5LDAsMCwxLDMxMi42Nyw1MywyMC41MiwyMC41MiwwLDAsMSwyOTksNTNhMTQuNjMsMTQuNjMsMCwwLDEtNS4yLTMuMzgsMTUsMTUsMCwwLDEtMy4zNS01LjI5LDE5LjU0LDE5LjU0LDAsMCwxLTEuMTctNi45NEExOS43NSwxOS43NSwwLDAsMSwyOTAuNDYsMzAuNDZabTgsMTAuNzFhMTAsMTAsMCwwLDAsMS4yNywzLjI5LDYuODEsNi44MSwwLDAsMCwyLjM5LDIuMzIsNy4yNiw3LjI2LDAsMCwwLDMuNzIuODcsNy40Miw3LjQyLDAsMCwwLDMuNzQtLjg3QTYuNzMsNi43MywwLDAsMCwzMTIsNDQuNDZhMTAsMTAsMCwwLDAsMS4yNy0zLjI5LDE4LjQ2LDE4LjQ2LDAsMCwwLC4zNy0zLjc0LDE5LjA3LDE5LjA3LDAsMCwwLS4zNy0zLjc4QTkuNzcsOS43NywwLDAsMCwzMTIsMzAuMzYsNy4xOCw3LjE4LDAsMCwwLDMwOS41NywyOGE3LjMyLDcuMzIsMCwwLDAtMy43NC0uODksNy4xNiw3LjE2LDAsMCwwLTMuNzIuODksNy4yNyw3LjI3LDAsMCwwLTIuMzksMi4zMiw5Ljc3LDkuNzcsMCwwLDAtMS4yNywzLjI5LDE5Ljg1LDE5Ljg1LDAsMCwwLS4zNywzLjc4QTE5LjIsMTkuMiwwLDAsMCwyOTguNDUsNDEuMTdaIi8+CiAgICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIKICAgICAgICAgICAgICAgICAgZD0iTTM1OC43Myw5LjE4VjMyLjkxbDExLjA4LTExLjUzaDEwLjQxTDM2OC4xNCwzMy4xNWwxMy40NSwyMC4yNkgzNzAuOTNMMzYyLjE0LDM5LjFsLTMuNDEsMy4yOHYxMWgtOC44VjkuMThaIi8+CiAgICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIKICAgICAgICAgICAgICAgICAgZD0iTTM4OC4wOSw0NS40NWE1LjE3LDUuMTcsMCwwLDAsMS41MSwxLjY3LDYuNzMsNi43MywwLDAsMCwyLjE0LDEsOS45Miw5LjkyLDAsMCwwLDIuNTEuMzEsOSw5LDAsMCwwLDEuOTUtLjIyLDYuNTQsNi41NCwwLDAsMCwxLjg2LS42OCw0LjE0LDQuMTQsMCwwLDAsMS4zOS0xLjI0LDMuMjQsMy4yNCwwLDAsMCwuNTYtMmMwLTEuMzItLjg4LTIuMzEtMi42My0zYTUzLjE0LDUzLjE0LDAsMCwwLTcuMzQtMmMtMS4yOC0uMjktMi41My0uNjMtMy43NS0xQTEyLjY4LDEyLjY4LDAsMCwxLDM4MywzNi43OGE3LjQ1LDcuNDUsMCwwLDEtMi4yOS0yLjQyLDYuODMsNi44MywwLDAsMS0uODctMy41Niw5LjU4LDkuNTgsMCwwLDEsMS4yMS01LjA4LDguODYsOC44NiwwLDAsMSwzLjE5LTMuMTNBMTQsMTQsMCwwLDEsMzg4Ljc0LDIxYTI3LjQsMjcuNCwwLDAsMSw1LjA3LS40NiwyNS4zNywyNS4zNywwLDAsMSw1LjA1LjQ5LDEzLjI2LDEzLjI2LDAsMCwxLDQuMzcsMS42OCwxMCwxMCwwLDAsMSwzLjE5LDMuMTIsMTAuNTUsMTAuNTUsMCwwLDEsMS41Miw0LjkzaC04LjM2YTMuODcsMy44NywwLDAsMC0xLjkyLTMuNDQsOC43OCw4Ljc4LDAsMCwwLTQuMDktLjksMTUuNDcsMTUuNDcsMCwwLDAtMS42MS4wOSw1LjQ3LDUuNDcsMCwwLDAtMS41OC40MSwzLjA4LDMuMDgsMCwwLDAtMS4yMS45LDIuMzQsMi4zNCwwLDAsMC0uNDksMS41NywyLjM4LDIuMzgsMCwwLDAsLjg2LDEuOTIsNi42Miw2LjYyLDAsMCwwLDIuMjYsMS4yMSwyOC41NSwyOC41NSwwLDAsMCwzLjE5Ljg0cTEuOC4zOCwzLjY2LjgxYTM0Ljk0LDM0Ljk0LDAsMCwxLDMuNzQsMS4wNSwxMi4yNCwxMi4yNCwwLDAsMSwzLjI1LDEuNjQsNy44Nyw3Ljg3LDAsMCwxLDIuMywyLjU0LDcuNDMsNy40MywwLDAsMSwuODcsMy43NSw5LjcyLDkuNzIsMCwwLDEtNC41OSw4LjczLDEzLjUsMTMuNSwwLDAsMS00LjY3LDEuODMsMjcuNDQsMjcuNDQsMCwwLDEtNS4zNi41MiwyNi41OSwyNi41OSwwLDAsMS01LjQ1LS41NUExNC4yNCwxNC4yNCwwLDAsMSwzODQsNTEuOGExMC4xNywxMC4xNywwLDAsMS00Ljg2LTguOGg4LjM2QTQuNzYsNC43NiwwLDAsMCwzODguMDksNDUuNDVaIi8+CiAgICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIKICAgICAgICAgICAgICAgICAgZD0iTTI0MS45Myw0Ni44NGE0LjM1LDQuMzUsMCwwLDEtMy0uNzQsNC4zNSw0LjM1LDAsMCwxLS43NC0zVjI3LjI3aDQuOTFsMy01Ljg5aC03Ljl2LTkuNmgtOC44djkuNkgyMjVsLTMsNS44OGg3LjM5VjQ2LjE2YTguMTMsOC4xMywwLDAsMCwuODEsMy45LDUuNzQsNS43NCwwLDAsMCwyLjIsMi4zLDkuMjcsOS4yNywwLDAsMCwzLjIyLDEuMDgsMjUuMTYsMjUuMTYsMCwwLDAsMy44Ny4yOGMuODcsMCwxLjc1LDAsMi42Ni0uMDZhMjEuNCwyMS40LDAsMCwwLDIuNDgtLjI1VjQ2LjU5YTEwLjQyLDEwLjQyLDAsMCwxLTEuMy4xOUMyNDIuOSw0Ni44MiwyNDIuNDMsNDYuODQsMjQxLjkzLDQ2Ljg0WiIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik01Mi4yNyw0Ni44NGE0LjM2LDQuMzYsMCwwLDEtMy0uNzQsNC4zNSw0LjM1LDAsMCwxLS43NC0zVjI3LjI3aDQuNTNsMy01Ljg5SDQ4LjU1di05LjZIMzkuNzZ2OS42SDM1LjM1bC0zLDUuODhoNy40VjQ2LjE2YTguMTQsOC4xNCwwLDAsMCwuOCwzLjksNS44MSw1LjgxLDAsMCwwLDIuMiwyLjNBOS4zNCw5LjM0LDAsMCwwLDQ2LDUzLjQ0YTI1LjE2LDI1LjE2LDAsMCwwLDMuODcuMjhjLjg3LDAsMS43NiwwLDIuNjYtLjA2QTIxLjQsMjEuNCwwLDAsMCw1NSw1My40MVY0Ni41OWExMC40MiwxMC40MiwwLDAsMS0xLjMuMTlDNTMuMjQsNDYuODIsNTIuNzYsNDYuODQsNTIuMjcsNDYuODRaIi8+CiAgICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIKICAgICAgICAgICAgICAgICAgZD0iTTM0My4wNywyMC41MmMtNy4zOSwwLTEwLjIyLDYuODEtMTAuMjIsNi44MWgtLjEyVjIxLjM4aC04LjM2djMyaDguNzlWNDBoMGMwLTcuOCwxLjUyLTExLjI4LDguMTctMTEuMjhhNy4xOSw3LjE5LDAsMCwxLDMuNDQuODJsMy43Ny03LjRBOS44OCw5Ljg4LDAsMCwwLDM0My4wNywyMC41MloiLz4KICAgICAgICAgICAgPHBvbHlnb24gY2xhc3M9ImNscy0yIgogICAgICAgICAgICAgICAgICAgICBwb2ludHM9IjI4MS45IDIxLjM5IDI3Ni4wMSA0My4wNiAyNzUuODkgNDMuMDYgMjcwLjQ0IDIxLjM5IDI2MS44OSAyMS4zOSAyNTYuNTYgNDMuMTMgMjU2LjQ0IDQzLjEzIDI1MC41NiAyMS4zOSAyNDQuODMgMzIuNjIgMjUxLjQzIDUzLjQxIDI2MC41MyA1My40MSAyNjUuOTggMzEuOTEgMjY2LjEgMzEuOTEgMjcxLjggNTMuNDEgMjgwLjg1IDUzLjQxIDI5MC45NCAyMS4zOSAyODEuOSAyMS4zOSIvPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==" alt="ThoughtWorks" /></span><span class="tw-cred-txt">alumnus · <b>Lead / Principal Engineer</b> · 2019–2022</span></div>
+            <a class="read-os" href="https://medium.com/@jameskinnahbrown/my-leadership-os-note-to-self-254ae42520be" target="_blank" rel="noopener noreferrer"><b>↟ How I actually lead</b> — my Leadership OS, in depth <span>↗</span></a>
+            <div class="hero-anchors">
+              <div class="anchor h"><span class="v">$1.5B</span><span class="l">NYSE float · where I grew up</span></div>
+              <div class="anchor h"><span class="v">$1T</span><span class="l">AUM · where I am now</span></div>
+            </div>
+            <nav class="links" aria-label="Contact">
+              <a href="https://www.linkedin.com/in/james-brown-6aa64923/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://github.com/JBJamesBrownJB" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://medium.com/@jameskinnahbrown" target="_blank" rel="noopener noreferrer">Medium</a>
+              <a href="mailto:jameskinnahbrown@gmail.com">Email</a>
+            </nav>
+          </div>
+          <div class="portrait"><img src="images/3djb.png" alt="James Brown" /></div>
+        </div>
+      </div>
+    </div>
+    <a class="drill" href="#journey"><span class="bar"></span>the journey ▼</a>
+  </header>
+
+  <!-- ================= JOURNEY / SPINE ================= -->
+  <section class="journey" id="journey">
+    <div class="wrap">
+      <div class="journey-head reveal">
+        <p class="eyebrow">The journey · 2006 → now · read top to bottom</p>
+        <h2>One continuous thread — from a support desk to a $1-trillion bank.</h2>
+        <p>Each role forged a trait the next inherited. Read top to bottom — it's how I got from there to here.</p>
+      </div>
+
+      <div class="rail">
+        <!-- instruments acquired -->
+        <aside class="instruments reveal" aria-hidden="true">
+          <div class="ihead">INSTRUMENTS ACQUIRED</div>
+          <span class="instr" data-instr="0"><span class="plus">+</span> mechanical &amp; human sympathy</span>
+          <span class="instr" data-instr="1"><span class="plus">+</span> government-grade rigour</span>
+          <span class="instr" data-instr="2"><span class="plus">+</span> 0→1 initiative</span>
+          <span class="instr" data-instr="3"><span class="plus">+</span> org design as architecture</span>
+          <span class="instr" data-instr="4"><span class="plus">+</span> leadership heat-shield</span>
+          <span class="instr" data-instr="5"><span class="plus">+</span> agentic discipline</span>
+        </aside>
+
+        <!-- the spine + stations -->
+        <div class="spine-col">
+          <svg class="gitgraph" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="spine" aria-hidden="true">
+            <div class="aura"></div><div class="base"></div><div class="fill" id="seamFill"></div>
+          </div>
+
+          <p class="main-tag reveal">● main · the through-line — read top to bottom (git log --reverse)</p>
+
+          <article class="station commit root reveal" data-station="-2" id="c-cardiff">
+            <div class="era"><span class="gref">tag: refs/edu/cardiff</span> <span style="color:var(--slate)">(root commit)</span></div>
+            <p class="commit-line"><b>BSc Geology &amp; Earth Science</b> · Cardiff University · 2001–04 — the first seams I ever learned to read.</p>
+            <p class="commit-sub">+ Windsurfing Club</p>
+          </article>
+
+          <article class="station origin reveal" data-station="-1" id="c-betfair">
+            <div class="era">Betfair · Market Analyst · where the bug bit</div>
+            <p class="origin-line">Where it started — cutting my teeth on the live trading platform during in-play sports, opening and closing markets in real time as bets traded against each other.</p>
+          </article>
+
+          <article class="station node-gold reveal" data-station="0" id="c-genius">
+            <div class="era">Betgenius → Genius Sports · 2006 → 2019 <span class="gref">feat/genius-sports</span> <span class="tag">tag: v-float-1.5B</span></div>
+            <h3>Genius Sports — a warehouse startup to a $1.5B float</h3>
+            <div class="ladder"><span>Tech Support</span><b>›</b><span>QA</span><b>›</b><span>Developer</span><b>›</b><span>Senior Dev</span><b>›</b><span class="top">Team Lead</span></div>
+            <p class="ladder-cap">B2B support desk to team lead · Aug 2006 → Feb 2019</p>
+            <p class="metric"><span class="t">100k+ msg/s</span> · sub-second→nanosecond latency · 30 → 1,000+ people</p>
+            <p>I was lucky to join a 30-person warehouse startup in Kentish Town — starting on the support desk — and over twelve years worked my way up to team lead as it grew into a <b>$1.5B NYSE-listed company</b>. Alongside some brilliant engineers we built distributed, event-driven systems that "herd data from low value to high value" — most still run today, powering well-known sports-betting platforms. It's where I learned to design for <b>the machine and the human at once</b>.</p>
+            <p class="forged">mechanical + human sympathy — build for whoever is doing the work: us, or the metal.<a class="src" href="https://medium.com/@jameskinnahbrown/sympathy-an-essential-ingredient-to-our-microservice-strategy-554d22f0c98e" target="_blank" rel="noopener noreferrer">Sympathy</a></p>
+            <p class="annot">"Quality is the only thing that allows for sustainable speed."<a class="src" href="https://medium.com/@jameskinnahbrown/my-leadership-os-note-to-self-254ae42520be" target="_blank" rel="noopener noreferrer">Leadership OS</a></p>
+            <div class="ctas">
+              <a class="cta talk" href="https://www.youtube.com/watch?v=kMWQkJ3FAxA" target="_blank" rel="noopener noreferrer">▶ Talk · Continuous Visibility, No More Dashboards (JFokus)</a>
+            </div>
+          </article>
+
+          <article class="station commit reveal" data-station="0" id="c-msc">
+            <div class="era"><span class="gref">commit on feat/genius-sports</span> <span class="tag">tag: msc-distinction</span></div>
+            <p class="commit-line"><b>MSc Computer Software Engineering</b> · Distinction · University of Westminster · 2008–10 — studied while working; branched off the day job and merged a distinction back.</p>
+          </article>
+
+          <div class="tw-era">
+          <div class="era-banner tw reveal" id="c-tw">
+            <div class="tw-mark"><span class="tw-plate"><img class="tw-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDguODEgNjUuNDkiPgogICAgPGRlZnM+CiAgICAgICAgPHN0eWxlPi5jbHMtMXtmaWxsOiNmMjYxN2E7fS5jbHMtMntmaWxsOiMwMDNkNGY7fTwvc3R5bGU+CiAgICA8L2RlZnM+CiAgICA8ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj4KICAgICAgICA8ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPgogICAgICAgICAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMjcuMjEgMCAwIDUzLjQxIDEyLjY0IDUzLjQxIDM5Ljg2IDAgMjcuMjEgMCIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik0xODMuODEsMjEuMzhsLTIuMTgsNC4yN2gtLjEzYTkuNiw5LjYsMCwwLDAtNC00QTEyLjQxLDEyLjQxLDAsMCwwLDE3MiwyMC41MmExMi44NiwxMi44NiwwLDAsMC01LjkxLDEuMywxMi42MSwxMi42MSwwLDAsMC00LjMxLDMuNSwxNS4zMywxNS4zMywwLDAsMC0yLjYzLDUuMDgsMTkuOSwxOS45LDAsMCwwLS45LDZBMjQuNjcsMjQuNjcsMCwwLDAsMTU5LDQyLjZhMTQuNDEsMTQuNDEsMCwwLDAsMi40NSw1LjE0LDExLjczLDExLjczLDAsMCwwLDQuMjcsMy40NywxNCwxNCwwLDAsMCw2LjIsMS4yNywxMywxMywwLDAsMCw1LjU0LTEuMjEsOC42NCw4LjY0LDAsMCwwLDQuMDYtMy43NWguMTJ2NC4yMmMwLDUtMi4zNCw3Ljg2LTcsNy44NnMtNy4xNC0yLTguNDYtMy42NEwxNjMsNjIuMjVzMy42LDMuMjQsMTAuNDEsMy4yNEMxODQuNyw2NS40OSwxOTAsNjAsMTkwLDUxLjM2di0zMFptLTIuNjQsMTguOTNhOC44Nyw4Ljg3LDAsMCwxLTEuNCwyLjgyLDcsNywwLDAsMS0yLjM1LDIsNyw3LDAsMCwxLTMuMjguNzQsNi4yMSw2LjIxLDAsMCwxLTMuNDEtLjg3LDYuOCw2LjgsMCwwLDEtMi4yLTIuMjMsOSw5LDAsMCwxLTEuMTctMy4wNiwxNy4zMSwxNy4zMSwwLDAsMS0uMzUtMy40NCwxNC4zNCwxNC4zNCwwLDAsMSwuNDEtMy40NCw4LjU1LDguNTUsMCwwLDEsMS4zLTIuOTEsNi43LDYuNywwLDAsMSwyLjIzLTIsNi4zOCw2LjM4LDAsMCwxLDMuMTktLjc0LDcuMiw3LjIsMCwwLDEsMy41OS44QTYuNDQsNi40NCwwLDAsMSwxODAsMzAuMTJhOS4zNyw5LjM3LDAsMCwxLDEuMjQsMy4xMywxNy45LDE3LjksMCwwLDEsLjM3LDMuNzRBMTEuNzMsMTEuNzMsMCwwLDEsMTgxLjE3LDQwLjMxWiIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik02Ni41NCw5LjE4VjI1Ljg0aC4xOUExMC4xMywxMC4xMywwLDAsMSw3MSwyMS43OWExMS40NCwxMS40NCwwLDAsMSw1LjA3LTEuMjcsMTUsMTUsMCwwLDEsNS44LDEsOC42OSw4LjY5LDAsMCwxLDMuNTYsMi42NiwxMC40MiwxMC40MiwwLDAsMSwxLjgyLDQuMTUsMjUuODgsMjUuODgsMCwwLDEsLjUzLDUuNDJ2MTkuN0g3OVYzNS4zMmExMS4xNywxMS4xNywwLDAsMC0xLjI0LTUuOTFjLS44Mi0xLjMxLTIuMjktMi00LjM5LTItMi40LDAtNC4xMy43Mi01LjIxLDIuMTRzLTEuNjEsMy43Ny0xLjYxLDdWNTMuNDFINTcuNzVWOS4xOFoiLz4KICAgICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIgogICAgICAgICAgICAgICAgICBkPSJNOTEuNDcsMzAuNDZhMTQuODcsMTQuODcsMCwwLDEsMy4zNC01LjMzLDE1LjIxLDE1LjIxLDAsMCwxLDUuMi0zLjQxLDIwLDIwLDAsMCwxLDEzLjY2LDAsMTQuNTYsMTQuNTYsMCwwLDEsOC41OCw4Ljc0LDE5Ljc1LDE5Ljc1LDAsMCwxLDEuMTgsNywxOS41NCwxOS41NCwwLDAsMS0xLjE4LDYuOTQsMTUuMTUsMTUuMTUsMCwwLDEtMy4zNCw1LjI5QTE0LjYyLDE0LjYyLDAsMCwxLDExMy42Nyw1MywyMC41MiwyMC41MiwwLDAsMSwxMDAsNTNhMTQuNzIsMTQuNzIsMCwwLDEtNS4yLTMuMzgsMTQuODcsMTQuODcsMCwwLDEtMy4zNC01LjI5LDE5LjMyLDE5LjMyLDAsMCwxLTEuMTgtNi45NEExOS41MywxOS41MywwLDAsMSw5MS40NywzMC40NlptOCwxMC43MWE5LjgxLDkuODEsMCwwLDAsMS4yNywzLjI5LDYuNyw2LjcsMCwwLDAsMi4zOCwyLjMyLDcuMjYsNy4yNiwwLDAsMCwzLjcyLjg3LDcuNDIsNy40MiwwLDAsMCwzLjc0LS44N0E2LjY1LDYuNjUsMCwwLDAsMTEzLDQ0LjQ2YTEwLDEwLDAsMCwwLDEuMjctMy4yOSwxOC40NiwxOC40NiwwLDAsMCwuMzctMy43NCwxOS4wNywxOS4wNywwLDAsMC0uMzctMy43OEE5Ljc3LDkuNzcsMCwwLDAsMTEzLDMwLjM2LDcuMDksNy4wOSwwLDAsMCwxMTAuNTcsMjhhNy4zMiw3LjMyLDAsMCwwLTMuNzQtLjg5LDYuNzMsNi43MywwLDAsMC02LjEsMy4yMSw5LjU3LDkuNTcsMCwwLDAtMS4yNywzLjI5LDE5LjA4LDE5LjA4LDAsMCwwLS4zOCwzLjc4QTE4LjQ2LDE4LjQ2LDAsMCwwLDk5LjQ2LDQxLjE3WiIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik0xNDcuNDMsNTMuNDFWNDloLS4xOGE5LjkzLDkuOTMsMCwwLDEtNC4zNCw0LDEyLjg4LDEyLjg4LDAsMCwxLTUuNDUsMS4yMywxNS41NywxNS41NywwLDAsMS01Ljc5LS45Miw4LjI4LDguMjgsMCwwLDEtMy41Ni0yLjY0LDEwLjIzLDEwLjIzLDAsMCwxLTEuODMtNC4xNSwyNS44OCwyNS44OCwwLDAsMS0uNTMtNS40MlYyMS4zOGg4LjhWMzkuNDdhMTEuMjEsMTEuMjEsMCwwLDAsMS4yNCw1LjkycTEuMjMsMS45NSw0LjQsMiwzLjU5LDAsNS4yLTIuMTRjMS4wNy0xLjQyLDEuNjEtMy43NywxLjYxLTdWMjEuMzhoOC43OXYzMloiLz4KICAgICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIgogICAgICAgICAgICAgICAgICBkPSJNMjAyLjA4LDkuMThWMjUuODRoLjE4YTEwLjE5LDEwLjE5LDAsMCwxLDQuMjgtNC4wNSwxMS40NCwxMS40NCwwLDAsMSw1LjA3LTEuMjcsMTUsMTUsMCwwLDEsNS44LDFBOC42OSw4LjY5LDAsMCwxLDIyMSwyNC4xNGExMC41NywxMC41NywwLDAsMSwxLjgzLDQuMTUsMjUuOSwyNS45LDAsMCwxLC41Miw1LjQydjE5LjdoLTguNzlWMzUuMzJhMTEuMjYsMTEuMjYsMCwwLDAtMS4yNC01LjkxcS0xLjI0LTItNC40LTJjLTIuNCwwLTQuMTMuNzItNS4yLDIuMTRzLTEuNjEsMy43Ny0xLjYxLDdWNTMuNDFoLTguOFY5LjE4WiIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik0yOTAuNDYsMzAuNDZBMTQuNjksMTQuNjksMCwwLDEsMjk5LDIxLjcyYTIwLDIwLDAsMCwxLDEzLjY2LDAsMTQuNjMsMTQuNjMsMCwwLDEsOC41OCw4Ljc0LDE5Ljc1LDE5Ljc1LDAsMCwxLDEuMTgsNywxOS41NCwxOS41NCwwLDAsMS0xLjE4LDYuOTQsMTUsMTUsMCwwLDEtMy4zNSw1LjI5QTE0LjQ5LDE0LjQ5LDAsMCwxLDMxMi42Nyw1MywyMC41MiwyMC41MiwwLDAsMSwyOTksNTNhMTQuNjMsMTQuNjMsMCwwLDEtNS4yLTMuMzgsMTUsMTUsMCwwLDEtMy4zNS01LjI5LDE5LjU0LDE5LjU0LDAsMCwxLTEuMTctNi45NEExOS43NSwxOS43NSwwLDAsMSwyOTAuNDYsMzAuNDZabTgsMTAuNzFhMTAsMTAsMCwwLDAsMS4yNywzLjI5LDYuODEsNi44MSwwLDAsMCwyLjM5LDIuMzIsNy4yNiw3LjI2LDAsMCwwLDMuNzIuODcsNy40Miw3LjQyLDAsMCwwLDMuNzQtLjg3QTYuNzMsNi43MywwLDAsMCwzMTIsNDQuNDZhMTAsMTAsMCwwLDAsMS4yNy0zLjI5LDE4LjQ2LDE4LjQ2LDAsMCwwLC4zNy0zLjc0LDE5LjA3LDE5LjA3LDAsMCwwLS4zNy0zLjc4QTkuNzcsOS43NywwLDAsMCwzMTIsMzAuMzYsNy4xOCw3LjE4LDAsMCwwLDMwOS41NywyOGE3LjMyLDcuMzIsMCwwLDAtMy43NC0uODksNy4xNiw3LjE2LDAsMCwwLTMuNzIuODksNy4yNyw3LjI3LDAsMCwwLTIuMzksMi4zMiw5Ljc3LDkuNzcsMCwwLDAtMS4yNywzLjI5LDE5Ljg1LDE5Ljg1LDAsMCwwLS4zNywzLjc4QTE5LjIsMTkuMiwwLDAsMCwyOTguNDUsNDEuMTdaIi8+CiAgICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIKICAgICAgICAgICAgICAgICAgZD0iTTM1OC43Myw5LjE4VjMyLjkxbDExLjA4LTExLjUzaDEwLjQxTDM2OC4xNCwzMy4xNWwxMy40NSwyMC4yNkgzNzAuOTNMMzYyLjE0LDM5LjFsLTMuNDEsMy4yOHYxMWgtOC44VjkuMThaIi8+CiAgICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIKICAgICAgICAgICAgICAgICAgZD0iTTM4OC4wOSw0NS40NWE1LjE3LDUuMTcsMCwwLDAsMS41MSwxLjY3LDYuNzMsNi43MywwLDAsMCwyLjE0LDEsOS45Miw5LjkyLDAsMCwwLDIuNTEuMzEsOSw5LDAsMCwwLDEuOTUtLjIyLDYuNTQsNi41NCwwLDAsMCwxLjg2LS42OCw0LjE0LDQuMTQsMCwwLDAsMS4zOS0xLjI0LDMuMjQsMy4yNCwwLDAsMCwuNTYtMmMwLTEuMzItLjg4LTIuMzEtMi42My0zYTUzLjE0LDUzLjE0LDAsMCwwLTcuMzQtMmMtMS4yOC0uMjktMi41My0uNjMtMy43NS0xQTEyLjY4LDEyLjY4LDAsMCwxLDM4MywzNi43OGE3LjQ1LDcuNDUsMCwwLDEtMi4yOS0yLjQyLDYuODMsNi44MywwLDAsMS0uODctMy41Niw5LjU4LDkuNTgsMCwwLDEsMS4yMS01LjA4LDguODYsOC44NiwwLDAsMSwzLjE5LTMuMTNBMTQsMTQsMCwwLDEsMzg4Ljc0LDIxYTI3LjQsMjcuNCwwLDAsMSw1LjA3LS40NiwyNS4zNywyNS4zNywwLDAsMSw1LjA1LjQ5LDEzLjI2LDEzLjI2LDAsMCwxLDQuMzcsMS42OCwxMCwxMCwwLDAsMSwzLjE5LDMuMTIsMTAuNTUsMTAuNTUsMCwwLDEsMS41Miw0LjkzaC04LjM2YTMuODcsMy44NywwLDAsMC0xLjkyLTMuNDQsOC43OCw4Ljc4LDAsMCwwLTQuMDktLjksMTUuNDcsMTUuNDcsMCwwLDAtMS42MS4wOSw1LjQ3LDUuNDcsMCwwLDAtMS41OC40MSwzLjA4LDMuMDgsMCwwLDAtMS4yMS45LDIuMzQsMi4zNCwwLDAsMC0uNDksMS41NywyLjM4LDIuMzgsMCwwLDAsLjg2LDEuOTIsNi42Miw2LjYyLDAsMCwwLDIuMjYsMS4yMSwyOC41NSwyOC41NSwwLDAsMCwzLjE5Ljg0cTEuOC4zOCwzLjY2LjgxYTM0Ljk0LDM0Ljk0LDAsMCwxLDMuNzQsMS4wNSwxMi4yNCwxMi4yNCwwLDAsMSwzLjI1LDEuNjQsNy44Nyw3Ljg3LDAsMCwxLDIuMywyLjU0LDcuNDMsNy40MywwLDAsMSwuODcsMy43NSw5LjcyLDkuNzIsMCwwLDEtNC41OSw4LjczLDEzLjUsMTMuNSwwLDAsMS00LjY3LDEuODMsMjcuNDQsMjcuNDQsMCwwLDEtNS4zNi41MiwyNi41OSwyNi41OSwwLDAsMS01LjQ1LS41NUExNC4yNCwxNC4yNCwwLDAsMSwzODQsNTEuOGExMC4xNywxMC4xNywwLDAsMS00Ljg2LTguOGg4LjM2QTQuNzYsNC43NiwwLDAsMCwzODguMDksNDUuNDVaIi8+CiAgICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIKICAgICAgICAgICAgICAgICAgZD0iTTI0MS45Myw0Ni44NGE0LjM1LDQuMzUsMCwwLDEtMy0uNzQsNC4zNSw0LjM1LDAsMCwxLS43NC0zVjI3LjI3aDQuOTFsMy01Ljg5aC03Ljl2LTkuNmgtOC44djkuNkgyMjVsLTMsNS44OGg3LjM5VjQ2LjE2YTguMTMsOC4xMywwLDAsMCwuODEsMy45LDUuNzQsNS43NCwwLDAsMCwyLjIsMi4zLDkuMjcsOS4yNywwLDAsMCwzLjIyLDEuMDgsMjUuMTYsMjUuMTYsMCwwLDAsMy44Ny4yOGMuODcsMCwxLjc1LDAsMi42Ni0uMDZhMjEuNCwyMS40LDAsMCwwLDIuNDgtLjI1VjQ2LjU5YTEwLjQyLDEwLjQyLDAsMCwxLTEuMy4xOUMyNDIuOSw0Ni44MiwyNDIuNDMsNDYuODQsMjQxLjkzLDQ2Ljg0WiIvPgogICAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiCiAgICAgICAgICAgICAgICAgIGQ9Ik01Mi4yNyw0Ni44NGE0LjM2LDQuMzYsMCwwLDEtMy0uNzQsNC4zNSw0LjM1LDAsMCwxLS43NC0zVjI3LjI3aDQuNTNsMy01Ljg5SDQ4LjU1di05LjZIMzkuNzZ2OS42SDM1LjM1bC0zLDUuODhoNy40VjQ2LjE2YTguMTQsOC4xNCwwLDAsMCwuOCwzLjksNS44MSw1LjgxLDAsMCwwLDIuMiwyLjNBOS4zNCw5LjM0LDAsMCwwLDQ2LDUzLjQ0YTI1LjE2LDI1LjE2LDAsMCwwLDMuODcuMjhjLjg3LDAsMS43NiwwLDIuNjYtLjA2QTIxLjQsMjEuNCwwLDAsMCw1NSw1My40MVY0Ni41OWExMC40MiwxMC40MiwwLDAsMS0xLjMuMTlDNTMuMjQsNDYuODIsNTIuNzYsNDYuODQsNTIuMjcsNDYuODRaIi8+CiAgICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIKICAgICAgICAgICAgICAgICAgZD0iTTM0My4wNywyMC41MmMtNy4zOSwwLTEwLjIyLDYuODEtMTAuMjIsNi44MWgtLjEyVjIxLjM4aC04LjM2djMyaDguNzlWNDBoMGMwLTcuOCwxLjUyLTExLjI4LDguMTctMTEuMjhhNy4xOSw3LjE5LDAsMCwxLDMuNDQuODJsMy43Ny03LjRBOS44OCw5Ljg4LDAsMCwwLDM0My4wNywyMC41MloiLz4KICAgICAgICAgICAgPHBvbHlnb24gY2xhc3M9ImNscy0yIgogICAgICAgICAgICAgICAgICAgICBwb2ludHM9IjI4MS45IDIxLjM5IDI3Ni4wMSA0My4wNiAyNzUuODkgNDMuMDYgMjcwLjQ0IDIxLjM5IDI2MS44OSAyMS4zOSAyNTYuNTYgNDMuMTMgMjU2LjQ0IDQzLjEzIDI1MC41NiAyMS4zOSAyNDQuODMgMzIuNjIgMjUxLjQzIDUzLjQxIDI2MC41MyA1My40MSAyNjUuOTggMzEuOTEgMjY2LjEgMzEuOTEgMjcxLjggNTMuNDEgMjgwLjg1IDUzLjQxIDI5MC45NCAyMS4zOSAyODEuOSAyMS4zOSIvPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==" alt="ThoughtWorks" /></span></div>
+            <div class="tw-role"><span class="gref coral">feat/thoughtworks</span> Lead Software Development Consultant · 2019–2022 · client-facing as <b>Principal Engineer</b> on the Client Leadership Team (CLT)</div>
+            <div class="tw-note">the firm where Continuous Delivery, Data Mesh, the Tech Radar &amp; the Architecture Advice Process were born — the engineering-excellence pedigree behind the three chapters below. I was also lucky to speak on conference stages throughout these years: Sweden, Norway, Morocco, London &amp; Milan.</div>
+          </div>
+
+          <article class="station reveal" data-station="1" id="c-ho">
+            <div class="era">ThoughtWorks · Engineer <span class="gref coral">gig/home-office</span> <span class="tag">tag: system-register</span></div>
+            <h3>Hands-on team lead — UK Home Office</h3>
+            <p class="metric">system-register · Quarkus/Java + React · <span class="t">elite DORA</span></p>
+            <p>With a sharp team we delivered government-grade software to <b>elite DORA standards</b> — security-conscious continuous delivery, <b>open-sourced</b> for the public, and work that went on to surface findings that reached national headlines. Polyglot by habit — Java, Kotlin, Python, Rust, Terraform, React, Vue — and quietly obsessive about quality engineering: TDD, pairing, trunk-based development.</p>
+            <p class="forged">government-grade rigour as the default, not the ceremony.</p>
+            <p class="annot">"A demo beats a deck." · A systems thinker's TDD — reframed as math: quality is a matter of time, not opinion.<a class="src" href="https://medium.com/@jameskinnahbrown/to-tdd-or-not-to-tdd-d3abeb2b674b" target="_blank" rel="noopener noreferrer">To TDD?</a></p>
+            <div class="ctas">
+              <a class="cta code" href="https://github.com/UKHomeOffice/system-register" target="_blank" rel="noopener noreferrer">&lt;/&gt; Open-source code</a>
+            </div>
+          </article>
+
+          <article class="station node-gold reveal" data-station="2" id="c-bmmro">
+            <div class="era">ThoughtWorks · Contributor <span class="gref coral">gig/bmmro</span> <span class="tag">Founder · 0→1</span></div>
+            <h3>BMMRO — an idea nobody asked for</h3>
+            <p class="metric"><span class="t">£1M+</span> of free technology · ~12 contributors · 4 iterations &amp; counting</p>
+            <p>Nobody briefed it — I just believed marine scientists deserved better tools. I pitched it, and was humbled when people stepped off the bench to build it after a few homemade videos and posters. Together they made something that's run for <b>years</b>, quietly changing how Bahamas researchers work. I never wrote a line of its code; my part was helping form the <b>team that could</b> — then trusting them with it.</p>
+            <p class="forged">0→1 initiative — the nerve to start something, and the sense to hand it over.</p>
+            <p class="annot">"A concept is more likely to starve in isolation than be stolen. Speak up, share, write, talk."<a class="src" href="https://medium.com/@jameskinnahbrown/my-leadership-os-note-to-self-254ae42520be" target="_blank" rel="noopener noreferrer">Leadership OS</a></p>
+            <div class="ctas">
+              <a class="cta film" href="https://www.thoughtworks.com/en-gb/clients/bahamas-marine-mammal-research-organisation" target="_blank" rel="noopener noreferrer">▶ Watch the ThoughtWorks film</a>
+              <a class="cta code" href="https://github.com/BMMRO-tech/BMMRO" target="_blank" rel="noopener noreferrer">&lt;/&gt; See the code</a>
+            </div>
+          </article>
+
+          <article class="station node-gold reveal" data-station="3" id="c-sims">
+            <div class="era">ThoughtWorks · Leader <span class="gref coral">gig/sims</span> <span class="tag">tag: sims-next-gen</span></div>
+            <h3>Head of Technology — SIMS (ParentPay Group)</h3>
+            <p class="metric"><span class="t">5 products in 18 months</span> · 200 devs · 7 DORA-elite teams · real-time Data Mesh</p>
+            <p>Europe's premier ed-tech, with a <b>75% market share</b> that was slipping 10%/year and <b>no new product in 8 years</b>. I was trusted to lead the turnaround — the reorg, the architecture, the engineering-practice shift — and with a genuinely talented team we shipped <b>SIMS Next Gen</b>, the cloud-native rebuild, then four more products in 18 months on a real-time Data-Mesh platform the competition's batch systems couldn't match. I left behind <b>seven autonomous, product-led teams</b> at elite DORA — easily the thing I'm proudest of.</p>
+            <p class="forged">org design as the first act of architecture — Conway's Law, cultivated deliberately.</p>
+            <p class="annot">"If more than five people start using it, sound the alarm — the idea has proven its value."<a class="src" href="https://medium.com/@jameskinnahbrown/citizen-developers-ai-is-all-you-need-now-7300d41d1d0d" target="_blank" rel="noopener noreferrer">Citizen Devs</a></p>
+            <div class="ctas">
+              <a class="cta product" href="https://www.parentpaygroup.com/sims-next-gen-roadmap/" target="_blank" rel="noopener noreferrer">↗ SIMS Next Gen</a>
+              <a class="cta talk" href="https://talks.codemotion.com/big-estimates-with-graph-theory?view=true" target="_blank" rel="noopener noreferrer">▶ Talk · Big Estimates with Graph Theory</a>
+            </div>
+          </article>
+
+            <p class="tw-also reveal">+ Plenty more across these years — including a technical RFP for a <b>3-million-trades/second</b> platform (Kotlin · Kafka · hexagonal architecture).</p>
+          </div>
+
+          <article class="station node-gold reveal" data-station="5" id="c-schroders">
+            <div class="era">The City · Sep 2022 → present <span class="gref head">HEAD → main</span> <span class="tag">* (current)</span></div>
+            <h3>Schroders — Enterprise Engineering Lead</h3>
+            <p class="metric">Staff engineer · 200-year-old asset manager · <span class="t">$1 trillion AUM</span> · <span class="t">10× engagement</span> on internal products</p>
+            <div class="scopes"><span class="hl">Agentic enablement</span><span>Skills marketplace</span><span>Team-metrics products</span><span>Mobile app delivery</span><span>Vision &amp; strategy · global</span></div>
+            <p>These days I'm grateful for the chance to work across several programmes at once — a skills marketplace, team-metrics products, mobile delivery — all with <b>tracked, 10×-growing engagement</b>, while helping shape engineering <b>vision and strategy at a global level</b>. I help steer the <b>agentic strategy</b>: carefully rolling out autonomous agents for critical, audited, regulated scrutiny work.<a class="src" href="https://medium.com/@jameskinnahbrown/the-substrate-of-intelligence-a-tree-based-framework-for-ai-agents-58cf5ab942e4" target="_blank" rel="noopener noreferrer">Substrate</a> Mostly I try to be the heat shield — turning technical reality into business risk so the people building can stay focused.</p>
+            <p class="forged">the leadership heat-shield, and change as immunology — win the culture or lose the transformation.</p>
+            <p class="annot">"A leader moves like water to do whatever is needed to progress the idea — to success or failure."</p>
+            <div class="ctas">
+              <a class="cta talk" href="https://www.juxt.pro/xt26/" target="_blank" rel="noopener noreferrer">▶ AI expert panel · XT26</a>
+              <a class="cta essay" href="https://medium.com/@jameskinnahbrown/to-tdd-or-not-to-tdd-d3abeb2b674b" target="_blank" rel="noopener noreferrer">✎ Speed vs Quality · NSTC talk + essay</a>
+            </div>
+          </article>
+
+          <!-- speciate now lives in the Lab section below the career timeline -->
+          <p class="closing-note reveal">$ git checkout <b>play/speciate</b> — a detached branch I keep for fun, never merged to main. It's just below ↓</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LAB / PERSONAL R&D ================= -->
+  <section class="section lab" id="lab">
+    <div class="wrap">
+      <p class="eyebrow reveal">Outside work · the lab</p>
+      <h2 class="reveal">And for fun, I point the craft at toy problems.</h2>
+      <p class="lede reveal">Twenty years of systems habits don't switch off at the weekend. <b>speciate</b> is a personal sandbox — an artificial-life world where DNA-driven creatures flock and evolve. Really it's an excuse to aim low-latency, trading-platform thinking at a game, and to see how far AI agents can build genuine systems code. A technical showcase, not a product.</p>
+      <div class="capstone reveal">
+        <div class="speci"><canvas id="speciate-canvas" aria-hidden="true"></canvas>
+          <div class="speci-cap">▲ the swarm <b>speciates</b> — DNA-driven creatures, emergent behaviour</div>
+        </div>
+        <div class="cap-body">
+          <div class="cap-head">
+            <h3>speciate <em>// a side project · code 100% agent-authored</em></h3>
+            <a class="repo-link" href="https://github.com/JBJamesBrownJB/speciate" target="_blank" rel="noopener noreferrer">github.com/JBJamesBrownJB/speciate ↗</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="n">900K</div><div class="l">creatures @ 20Hz · 0 stall frames</div></div>
+            <div class="stat t"><div class="n">0.77%</div><div class="l">branch-miss · perf_event counters</div></div>
+            <div class="stat"><div class="n">σ 0.8ms</div><div class="l">frame-time deviation</div></div>
+            <div class="stat t"><div class="n">IPC 4.25</div><div class="l">movement hot-loop</div></div>
+            <div class="stat"><div class="n">761</div><div class="l">files · 124 Rust modules</div></div>
+            <div class="stat t"><div class="n">6.3×</div><div class="l">Rayon parallel speedup</div></div>
+          </div>
+          <div class="cap-cols">
+            <div>
+              <p><b>Twenty years of trading-platform habits, in Rust.</b> A data-oriented ECS core — Struct-of-Arrays archetypes, a contiguous spatial buffer packed by a zero-allocation parallel counting sort — keeps the hot working set cache-resident. <b>"My L3 is my RAM."</b> Movement runs on Rust's fearless parallelism (Rayon) for a <b>6.3× speedup</b>, confirmed by <code>perf_event</code> counters: IPC 4.25, 0.77% branch-miss.</p>
+              <p><b>Joined to the richest frontend ecosystem in the world.</b> That Rust core meets JavaScript — PixiJS / WebGL — at a <b>zero-copy seam</b> where most hybrids die: positions cross the boundary as a shared <code>Float32Array</code> over a NAPI-RS double buffer, no per-frame serialization tax. Two worlds, mechanical sympathy intact.</p>
+              <p><b>And built almost entirely by AI agents</b> — an auditable agentic SDLC (named subagents, sprint commands, TDD-enforcing hooks, AGENTS.md contracts), the same methods now shaping the agentic strategy at Schroders.</p>
+            </div>
+            <div class="diff">
+              <div class="dh">git shortlog -sn — who built it</div>
+              <div class="row agent"><span class="who">claude (agents)</span><span class="meter"><i style="width:79%"></i></span><span class="v">+152</span></div>
+              <div class="row human"><span class="who">JB (human)</span><span class="meter"><i style="width:21%"></i></span><span class="v">+40</span></div>
+              <div class="cap">The human set the genome; the agents grew the colony. A decade after BMMRO — same 0→1 instinct, now with machines.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="contact">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <p class="eyebrow">Let's cultivate something that ships</p>
+          <h2>James Brown</h2>
+          <nav class="links" aria-label="Contact">
+            <a href="https://www.linkedin.com/in/james-brown-6aa64923/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/JBJamesBrownJB" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://medium.com/@jameskinnahbrown" target="_blank" rel="noopener noreferrer">Medium</a>
+            <a href="mailto:jameskinnahbrown@gmail.com">Email</a>
+          </nav>
+          <div class="book">
+            <a class="book-cover" href="https://www.amazon.com/Facilitating-Software-Architecture-Empowering-Architectural/dp/1098151860" target="_blank" rel="noopener noreferrer"><img src="images/book.jpg" alt="Facilitating Software Architecture — book cover" /></a>
+            <p>Contributor to the thinking around the <b>Architecture Advice Process</b> — Andrew Harmel-Law, <b>Facilitating Software Architecture</b> (O'Reilly). <a class="book-buy" href="https://www.amazon.com/Facilitating-Software-Architecture-Empowering-Architectural/dp/1098151860" target="_blank" rel="noopener noreferrer">On Amazon ↗</a></p>
+          </div>
+        </div>
+        <p class="colophon">
+          A timeline that builds the person.<br>
+          The hero is a <b>live emergent simulation</b> — it speciates into the engine at the end.<br>
+          Single source → <b>HTML + dense print PDF</b>.<br>
+          <b>Co-Authored-By: Claude Opus 4.8 (1M context)</b> — this CV, like speciate, was grown with agents.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- reveal + instrument lighting ---------- */
+  var revealEls = [].slice.call(document.querySelectorAll('.reveal'));
+  var instrs = [].slice.call(document.querySelectorAll('.instr'));
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    revealEls.forEach(function(el){io.observe(el);});
+    var sObs = new IntersectionObserver(function(es){es.forEach(function(e){
+      var i = +e.target.getAttribute('data-station');
+      if(e.isIntersecting){ e.target.classList.add('in');
+        for(var k=0;k<=i&&k<instrs.length;k++) instrs[k].classList.add('lit');
+      }
+    });},{threshold:.25,rootMargin:'0px 0px -30% 0px'});
+    [].slice.call(document.querySelectorAll('.station')).forEach(function(s){sObs.observe(s);});
+  } else {
+    revealEls.forEach(function(el){el.classList.add('in');});
+    instrs.forEach(function(el){el.classList.add('lit');});
+  }
+
+  /* ---------- seam fill tied to journey scroll ---------- */
+  var fill = document.getElementById('seamFill');
+  var journey = document.getElementById('journey');
+  function onScroll(){
+    if(!fill||!journey) return;
+    var r = journey.getBoundingClientRect();
+    var total = r.height - window.innerHeight*0.5;
+    var p = Math.min(1, Math.max(0, (window.innerHeight*0.5 - r.top) / Math.max(1,total)));
+    fill.style.height = (p*100).toFixed(2) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  /* ---------- shared boids engine ---------- */
+  function makeSprite(color, s){
+    var c=document.createElement('canvas');c.width=c.height=s;var g=c.getContext('2d');
+    var rad=g.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+    rad.addColorStop(0,color);rad.addColorStop(.55,color);rad.addColorStop(1,'rgba(0,0,0,0)');
+    g.fillStyle=rad;g.beginPath();g.arc(s/2,s/2,s/2,0,Math.PI*2);g.fill();return c;
+  }
+  function rand(a,b){return a+Math.random()*(b-a);}
+
+  function Flock(canvas, opts){
+    opts=opts||{};
+    var ctx=canvas.getContext('2d',{alpha:false});
+    var DPR=Math.min(window.devicePixelRatio||1,2);
+    var W=0,H=0,agents=[],COUNT=0;
+    var sprT=makeSprite('rgba(63,224,200,0.9)',26), sprG=makeSprite('rgba(232,178,58,0.9)',26);
+    var BG=opts.bg||'#0A0F11', density=opts.density||620, maxN=opts.maxN||1900, minN=opts.minN||300;
+    var PERC=34,PERC2=PERC*PERC,SEP=16,SEP2=SEP*SEP,MAX=opts.max||1.5,CELL=PERC,grid={};
+    var MIN=opts.minSpeed||0.35, FADE=opts.fade||0.22, FAST=opts.fast||1.05;
+    var speciate=!!opts.speciate;
+    function resize(){
+      var r=canvas.getBoundingClientRect();W=r.width;H=r.height;
+      if(W<2||H<2)return;
+      canvas.width=Math.floor(W*DPR);canvas.height=Math.floor(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0);
+      COUNT=Math.max(minN,Math.min(maxN,Math.round((W*H)/density)));
+      agents=[];for(var i=0;i<COUNT;i++){var a=rand(0,6.28),sp=rand(.4,1.1);
+        agents.push({x:rand(0,W),y:rand(0,H),vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,dna:rand(.6,1.6),hue:Math.random()});}
+      ctx.fillStyle=BG;ctx.fillRect(0,0,W,H);
+      if(opts.onCount)opts.onCount(COUNT);
+    }
+    function key(x,y){return x+','+y;}
+    function step(){
+      grid={};var i,a;
+      for(i=0;i<COUNT;i++){a=agents[i];var k=key((a.x/CELL)|0,(a.y/CELL)|0);(grid[k]||(grid[k]=[])).push(a);}
+      for(i=0;i<COUNT;i++){a=agents[i];var cx=(a.x/CELL)|0,cy=(a.y/CELL)|0,ax=0,ay=0,cxs=0,cys=0,sx=0,sy=0,n=0;
+        for(var ox=-1;ox<=1;ox++)for(var oy=-1;oy<=1;oy++){var bk=grid[key(cx+ox,cy+oy)];if(!bk)continue;
+          for(var j=0;j<bk.length;j++){var b=bk[j];if(b===a)continue;var dx=b.x-a.x,dy=b.y-a.y,d2=dx*dx+dy*dy;
+            if(d2>PERC2||d2===0)continue;ax+=b.vx;ay+=b.vy;cxs+=b.x;cys+=b.y;n++;
+            if(d2<SEP2){var inv=1/Math.sqrt(d2);sx-=dx*inv;sy-=dy*inv;}}}
+        if(n>0){a.vx+=(ax/n-a.vx)*.045;a.vy+=(ay/n-a.vy)*.045;a.vx+=(cxs/n-a.x)*.0011;a.vy+=(cys/n-a.y)*.0011;}
+        a.vx+=sx*.06;a.vy+=sy*.06;
+        var sp=Math.sqrt(a.vx*a.vx+a.vy*a.vy);
+        if(sp>MAX){a.vx=a.vx/sp*MAX;a.vy=a.vy/sp*MAX;}else if(sp<MIN&&sp>0){a.vx=a.vx/sp*MIN;a.vy=a.vy/sp*MIN;}
+        a.x+=a.vx;a.y+=a.vy;a._sp=sp;
+        if(a.x<-8)a.x=W+8;else if(a.x>W+8)a.x=-8;if(a.y<-8)a.y=H+8;else if(a.y>H+8)a.y=-8;
+      }
+    }
+    function draw(){
+      ctx.globalCompositeOperation='source-over';ctx.fillStyle='rgba(10,15,17,'+FADE+')';ctx.fillRect(0,0,W,H);
+      ctx.globalCompositeOperation='lighter';
+      for(var i=0;i<COUNT;i++){var a=agents[i];var fast=a._sp>FAST;
+        if(speciate){
+          // DNA creatures: oriented triangle, size from dna, colour from hue
+          var ang=Math.atan2(a.vy,a.vx),sz=4+a.dna*5,gold=a.hue>0.55;
+          ctx.save();ctx.translate(a.x,a.y);ctx.rotate(ang);
+          ctx.globalCompositeOperation='lighter';
+          ctx.fillStyle=gold?'rgba(232,178,58,0.9)':'rgba(63,224,200,0.9)';
+          ctx.beginPath();ctx.moveTo(sz,0);ctx.lineTo(-sz*0.7,sz*0.6);ctx.lineTo(-sz*0.7,-sz*0.6);ctx.closePath();ctx.fill();
+          ctx.restore();
+        } else {
+          var spr=fast?sprG:sprT,sz2=fast?9:7;ctx.drawImage(spr,a.x-sz2/2,a.y-sz2/2,sz2,sz2);
+        }
+      }
+    }
+    var running=false;
+    function frame(){if(!running)return;step();draw();requestAnimationFrame(frame);}
+    function play(){if(running||reduce)return;running=true;requestAnimationFrame(frame);}
+    function pause(){running=false;}
+    resize();
+    window.addEventListener('resize',resize);
+    document.addEventListener('visibilitychange',function(){if(document.hidden)pause();else play();});
+    if(reduce){for(var s=0;s<70;s++)step();draw();}else play();
+    return {resize:resize,play:play,pause:pause};
+  }
+
+  var heroC=document.getElementById('swarm');
+  if(heroC&&heroC.getContext){
+    var heroFlock=Flock(heroC,{density:850,maxN:1400,max:0.8,minSpeed:0.12,fade:0.34,fast:0.62});
+    if('IntersectionObserver' in window && !reduce){
+      new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)heroFlock.play();else heroFlock.pause();});},{threshold:0}).observe(heroC);
+    }
+  }
+
+  var speC=document.getElementById('speciate-canvas');
+  if(speC&&speC.getContext){
+    // only run the speciation canvas when near viewport (perf)
+    var started=false;
+    function maybeStart(){
+      if(started)return;var r=speC.getBoundingClientRect();
+      if(r.top<window.innerHeight*1.2 && r.bottom>0){started=true;Flock(speC,{bg:'#14272A',density:470,maxN:760,minN:110,speciate:true,max:0.85,minSpeed:0.1,fade:0.3});}
+    }
+    window.addEventListener('scroll',maybeStart,{passive:true});window.addEventListener('resize',maybeStart);maybeStart();
+  }
+})();
+(function(){
+  "use strict";
+  var col=document.querySelector('.spine-col'), svg=document.querySelector('.gitgraph');
+  if(!col||!svg) return;
+  var L=[16,48,80], R=6.5, GOLD='#E8B23A', TEAL='#3FE0C8', CORAL='#f2617a', BG='#0A0F11';
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var IDS=['c-cardiff','c-betfair','c-genius','c-msc','c-tw','c-ho','c-bmmro','c-sims','c-schroders'];
+  function yOf(id){var el=document.getElementById(id);if(!el)return null;var a=el.querySelector('.era,.tw-role')||el;return a.getBoundingClientRect().top-col.getBoundingClientRect().top+11;}
+  function pth(d,c,w,dash){return '<path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="'+(w||2.6)+'" stroke-linecap="round"'+(dash?' stroke-dasharray="2.5 4.5"':'')+'/>';}
+  function vl(x,y1,y2,c,w,dash){return pth('M '+x+' '+y1+' L '+x+' '+y2,c,w,dash);}
+  function cv(x1,y1,x2,y2,c){var m=(y1+y2)/2;return pth('M '+x1+' '+y1+' C '+x1+' '+m+' '+x2+' '+m+' '+x2+' '+y2,c);}
+  function nd(x,yy,c,o){o=o||{};return '<circle cx="'+x+'" cy="'+yy+'" r="'+(o.r||R)+'" fill="'+(o.hollow?BG:c)+'" stroke="'+c+'" stroke-width="2.4"'+(o.dash?' stroke-dasharray="3 3"':'')+'/>';}
+  function draw(){
+    var Y={};IDS.forEach(function(id){Y[id]=yOf(id);});
+    if(Y['c-schroders']==null||Y['c-cardiff']==null)return;
+    var H=col.scrollHeight; svg.setAttribute('viewBox','0 0 96 '+H); svg.style.height=H+'px';
+    var cT=col.getBoundingClientRect().top;
+    function _bot(id){return document.getElementById(id).getBoundingClientRect().bottom-cT;}
+    function _top(id){return document.getElementById(id).getBoundingClientRect().top-cT;}
+    if(window.innerWidth<=820){
+      svg.setAttribute('viewBox','0 0 30 '+H);
+      var X=14, tip=_bot('c-schroders')-20;
+      var sp=[vl(X,Y['c-cardiff'],tip,GOLD,3)];
+      var COL={'c-cardiff':GOLD,'c-betfair':GOLD,'c-genius':TEAL,'c-msc':TEAL,'c-tw':CORAL,'c-ho':CORAL,'c-bmmro':CORAL,'c-sims':CORAL,'c-schroders':GOLD};
+      IDS.forEach(function(id){sp.push(nd(X,Y[id],COL[id],{hollow:(id==='c-cardiff'||id==='c-msc'),dash:id==='c-cardiff',r:id==='c-schroders'?7.5:R}));});
+      if(!reduce){[0,0.8,1.6].forEach(function(d){sp.push('<circle cx="'+X+'" cy="'+tip+'" r="6" fill="none" stroke="'+GOLD+'" stroke-width="2"><animate attributeName="r" values="6;24" dur="2.4s" begin="'+d+'s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0" dur="2.4s" begin="'+d+'s" repeatCount="indefinite"/></circle>');});sp.push('<circle cx="'+X+'" cy="'+tip+'" r="6.5" fill="'+GOLD+'" stroke="'+BG+'" stroke-width="1.5"><animate attributeName="r" values="6;7.6;6" dur="2.4s" repeatCount="indefinite"/></circle>');}else{sp.push('<circle cx="'+X+'" cy="'+tip+'" r="13" fill="none" stroke="'+GOLD+'" stroke-width="1.5" opacity="0.3"/><circle cx="'+X+'" cy="'+tip+'" r="6.5" fill="'+GOLD+'"/>');}
+      svg.innerHTML=sp.join(''); return;
+    }
+    var gFork=(Y['c-betfair']+Y['c-genius'])/2, gMerge=(Y['c-msc']+Y['c-tw'])/2;
+    var twFork=gMerge+7, twMerge=_bot('c-sims')+4, sFork=_top('c-schroders')-20;
+    var p=[];
+    p.push(vl(L[0],Y['c-cardiff'],sFork,GOLD,3));
+    p.push(cv(L[0],gFork,L[1],Y['c-genius'],TEAL));
+    p.push(vl(L[1],Y['c-genius'],Y['c-msc'],TEAL));
+    p.push(cv(L[1],Y['c-msc'],L[0],gMerge,TEAL));
+    p.push(cv(L[0],twFork,L[1],Y['c-tw'],CORAL));
+    p.push(vl(L[1],Y['c-tw'],twMerge,CORAL));
+    p.push(cv(L[1],twMerge,L[0],twMerge+13,CORAL));
+    ['c-ho','c-bmmro','c-sims'].forEach(function(id){var t=_top(id);var b=_bot(id)-28;p.push(cv(L[1],t,L[2],t+16,CORAL));p.push(vl(L[2],t+16,b,CORAL));p.push(cv(L[2],b,L[1],b+18,CORAL));});
+    p.push(cv(L[0],sFork,L[1],Y['c-schroders'],GOLD));
+    var tipY=_bot('c-schroders')-20;
+    p.push(vl(L[1],Y['c-schroders'],tipY,GOLD));
+    if(!reduce){
+      [0,0.8,1.6].forEach(function(d){p.push('<circle cx="'+L[1]+'" cy="'+tipY+'" r="6" fill="none" stroke="'+GOLD+'" stroke-width="2"><animate attributeName="r" values="6;30" dur="2.4s" begin="'+d+'s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0" dur="2.4s" begin="'+d+'s" repeatCount="indefinite"/></circle>');});
+      p.push('<circle cx="'+L[1]+'" cy="'+tipY+'" r="6.5" fill="'+GOLD+'" stroke="'+BG+'" stroke-width="1.5"><animate attributeName="r" values="6;7.6;6" dur="2.4s" repeatCount="indefinite"/></circle>');
+    }else{
+      p.push('<circle cx="'+L[1]+'" cy="'+tipY+'" r="17" fill="none" stroke="'+GOLD+'" stroke-width="1.5" opacity="0.3"/>');
+      p.push('<circle cx="'+L[1]+'" cy="'+tipY+'" r="6.5" fill="'+GOLD+'"/>');
+    }
+    p.push('<text x="'+(L[1]+16)+'" y="'+(tipY+4)+'" fill="'+GOLD+'" font-family="JetBrains Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.3">· in progress</text>');
+    p.push(nd(L[0],Y['c-cardiff'],GOLD,{hollow:true,dash:true}));
+    p.push(nd(L[0],Y['c-betfair'],GOLD,{r:5.5}));
+    p.push(nd(L[1],Y['c-genius'],TEAL));
+    p.push(nd(L[1],Y['c-msc'],TEAL,{hollow:true,r:5.5}));
+    p.push(nd(L[1],Y['c-tw'],CORAL));
+    p.push(nd(L[2],Y['c-ho'],CORAL));
+    p.push(nd(L[2],Y['c-bmmro'],CORAL));
+    p.push(nd(L[2],Y['c-sims'],CORAL));
+    p.push(nd(L[1],Y['c-schroders'],GOLD,{r:8}));
+    svg.innerHTML=p.join('');
+  }
+  function sched(){requestAnimationFrame(draw);}
+  window.addEventListener('resize',sched);
+  window.addEventListener('load',sched);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(sched);
+  sched();setTimeout(sched,500);setTimeout(sched,1400);
+})();
+</script>
+</body>
+</html>

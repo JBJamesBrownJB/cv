@@ -1,0 +1,14 @@
+# Private working material — tailored to a specific opportunity, never publish.
+research/
+ideas.md
+
+# Scratch / preview artifacts
+review/
+review2/
+review3/
+.playwright-mcp/
+*.tmp
+
+# OS noise
+Thumbs.db
+.DS_Store
