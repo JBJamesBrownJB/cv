@@ -605,6 +605,7 @@
     var speciate=!!opts.speciate;
     var PRED=opts.predator?(opts.predR||120):0, FLEEF=opts.fleeForce||0.85, PANIC=opts.panic||1.8;
     var mx=-99999,my=-99999,rect=null;
+    var PR=PRED, TOUCHR=PRED*1.7;   // wider flee halo for fingers (no hover lead-in)
     var lastW=0,lastH=0,seeded=false;
     function resize(){
       var r=canvas.getBoundingClientRect();W=r.width;H=r.height;rect=r;
@@ -637,7 +638,7 @@
         if(n>0){a.vx+=(ax/n-a.vx)*.045;a.vy+=(ay/n-a.vy)*.045;a.vx+=(cxs/n-a.x)*.0011;a.vy+=(cys/n-a.y)*.0011;}
         a.vx+=sx*.06;a.vy+=sy*.06;
         if(PRED&&mx>-9000){var pdx=a.x-mx,pdy=a.y-my,pd2=pdx*pdx+pdy*pdy;
-          if(pd2<PRED*PRED&&pd2>0.01){var pd=Math.sqrt(pd2),pf=1-pd/PRED;a.vx+=(pdx/pd)*pf*FLEEF;a.vy+=(pdy/pd)*pf*FLEEF;if(pf>a.flee)a.flee=pf;}}
+          if(pd2<PR*PR&&pd2>0.01){var pd=Math.sqrt(pd2),pf=1-pd/PR;a.vx+=(pdx/pd)*pf*FLEEF;a.vy+=(pdy/pd)*pf*FLEEF;if(pf>a.flee)a.flee=pf;}}
         var sp=Math.sqrt(a.vx*a.vx+a.vy*a.vy);
         if(sp>0){var t=a.cruise*(1+a.flee*PANIC);a.vx=a.vx/sp*t;a.vy=a.vy/sp*t;}
         a.flee*=0.94;
@@ -669,7 +670,12 @@
     resize();
     window.addEventListener('resize',resize);
     if(PRED){
-      window.addEventListener('pointermove',function(e){if(rect)mx=e.clientX-rect.left,my=e.clientY-rect.top;},{passive:true});
+      var setP=function(e){if(!rect)return;mx=e.clientX-rect.left;my=e.clientY-rect.top;PR=e.pointerType==='touch'?TOUCHR:PRED;};
+      var clearTouch=function(e){if(!e||e.pointerType==='touch'){mx=my=-99999;}};
+      window.addEventListener('pointermove',setP,{passive:true});
+      window.addEventListener('pointerdown',setP,{passive:true});   // tap / first contact scatters instantly
+      window.addEventListener('pointerup',clearTouch,{passive:true});
+      window.addEventListener('pointercancel',clearTouch,{passive:true});
       window.addEventListener('scroll',function(){rect=canvas.getBoundingClientRect();},{passive:true});
       document.addEventListener('pointerleave',function(){mx=my=-99999;});
     }
