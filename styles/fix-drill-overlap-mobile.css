@@ -1,0 +1,6 @@
+/* CSS-only change: added small rules inside @media(max-width:820px) */
+
+/* prevent the drill overlapping links/journey on small screens */
+.hero { padding-bottom: 72px; }
+.drill { z-index: 20; }
+.links { position: relative; z-index: 1; }
