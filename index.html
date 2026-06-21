@@ -296,7 +296,9 @@
     /* compact masthead */
     .hero{min-height:auto;border-bottom:1.5px solid var(--gold);padding:0 0 8px;break-after:avoid}
     .hero-grid{grid-template-columns:1fr auto;gap:14px;align-items:center}
-    .portrait{display:block;width:74px}
+    .portrait{display:block;width:92px}
+    /* print: let the intro text stretch the full width toward the portrait (kill screen caps) */
+    .hero-body{max-width:none!important} .hook{max-width:none!important} .hero-tag{max-width:none!important}
     h1{font-size:34px}
     .kicker{margin-bottom:8px;font-size:9px}
     .hero-tag{font-size:14px;margin-top:6px} .hero-sub{font-size:9.5px;margin-top:7px;max-width:none}
