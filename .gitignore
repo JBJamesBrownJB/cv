@@ -9,6 +9,13 @@ review3/
 .playwright-mcp/
 *.tmp
 
+# Test tooling (dev-only)
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+/graph-schroders.png
+
 # OS noise
 Thumbs.db
 .DS_Store
