@@ -538,16 +538,17 @@
             <a class="repo-link" href="https://github.com/JBJamesBrownJB/speciate" target="_blank" rel="noopener noreferrer">github.com/JBJamesBrownJB/speciate ↗</a>
           </div>
           <div class="stats">
-            <div class="stat"><div class="n">900K</div><div class="l">creatures @ 20Hz · 0 stall frames</div></div>
-            <div class="stat t"><div class="n">0.77%</div><div class="l">branch-miss · perf_event counters</div></div>
-            <div class="stat"><div class="n">σ ~0ms</div><div class="l">frame-time · frontend-smoothed</div></div>
-            <div class="stat t"><div class="n">IPC ~2</div><div class="l">movement hot-loop</div></div>
+            <div class="stat"><div class="n">1M</div><div class="l">creatures @ 20Hz · real-time</div></div>
+            <div class="stat t"><div class="n">48.5ms</div><div class="l">tick · of a 50ms budget</div></div>
+            <div class="stat"><div class="n">0</div><div class="l">dropped frames · σ 1.15ms</div></div>
+            <div class="stat t"><div class="n">2.8 GB</div><div class="l">RAM · single machine</div></div>
             <div class="stat"><div class="n">761</div><div class="l">files · 124 Rust modules</div></div>
             <div class="stat t"><div class="n">0-copy</div><div class="l">Rust↔JS Float32 seam</div></div>
           </div>
           <div class="cap-cols">
             <div>
-              <p><b>Twenty years of trading-platform habits, in Rust.</b> A data-oriented ECS core — Struct-of-Arrays archetypes, a contiguous spatial buffer packed by a zero-allocation parallel counting sort — keeps the hot working set cache-resident. <b>"My L3 is my RAM."</b> Movement runs on Rust's fearless parallelism (Rayon); <code>perf_event</code> counters put the hot loop near <b>IPC ~2</b> at 0.77% branch-miss.</p>
+              <p><b>Twenty years of trading-platform habits, in Rust.</b> A <b>Bevy ECS</b> core — Struct-of-Arrays archetypes, a contiguous spatial buffer packed by a zero-allocation parallel counting sort — keeps the hot working set cache-resident. <b>"My L3 is my RAM."</b> It now sustains <b>a million DNA-driven creatures at 20&nbsp;Hz</b> on a single machine — 48.5&nbsp;ms of a 50&nbsp;ms tick budget, <b>zero dropped frames</b>, cross-checked by a seed-reproducible benchmark harness.</p>
+              <p><b>And the unlock was biology, not brute force.</b> Giving creatures a realistic body-size distribution — a teeming majority of small animals, rare giants, like a real ecosystem — cut the heaviest cost <b>~35%</b> and pulled the whole frame under budget. The world got more believable <i>and</i> faster at once.</p>
               <p><b>Joined to the richest frontend ecosystem in the world.</b> That Rust core meets JavaScript — PixiJS / WebGL — at a <b>zero-copy seam</b> where most hybrids die: positions cross the boundary as a shared <code>Float32Array</code> over a NAPI-RS double buffer, no per-frame serialization tax. Two worlds, mechanical sympathy intact.</p>
               <p><b>And built almost entirely by AI agents</b> — an auditable agentic SDLC (named subagents, sprint commands, TDD-enforcing hooks, AGENTS.md contracts), the same methods now shaping the agentic strategy at Schroders.</p>
             </div>
