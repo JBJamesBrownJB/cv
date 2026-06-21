@@ -35,7 +35,11 @@
   #swarm{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
   .hero-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(125% 95% at 80% 20%,rgba(10,15,17,0) 28%,rgba(10,15,17,.6) 70%,rgba(10,15,17,.92) 100%),linear-gradient(90deg,rgba(10,15,17,.93) 0%,rgba(10,15,17,.72) 40%,rgba(10,15,17,.2) 72%)}
   .hero-inner{position:relative;z-index:2;width:100%}
-  .hero-grid{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+  .hero-grid{display:grid;grid-template-columns:auto auto;column-gap:clamp(30px,4vw,58px);align-items:center;justify-content:start}
+  .hero-grid>.kicker{grid-column:1/-1}
+  .hero-grid>h1{grid-column:1/-1}
+  .hero-grid>.hero-body{grid-column:1;max-width:58ch}
+  .hero-grid>.portrait{grid-column:2}
   .kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin:0 0 22px}
   h1{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.9;font-size:clamp(52px,8.6vw,120px);margin:0}
   h1 .b{color:var(--gold)}
@@ -234,6 +238,8 @@
   .book p b{color:var(--bone)}
   .colophon{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.7;max-width:42ch}
   .colophon b{color:var(--bone-2);font-weight:500}
+  .colophon a{color:var(--bone-2);text-decoration:none;border-bottom:1px dotted var(--dim)}
+  .colophon a:hover{color:var(--teal);border-bottom-color:var(--teal)}
 
   /* ===================== RESPONSIVE ===================== */
   @media(max-width:820px){
@@ -323,9 +329,9 @@
     <div class="hero-inner">
       <div class="wrap">
         <div class="hero-grid">
-          <div>
-            <p class="kicker">Engineering leader · systems · product · AI frontier</p>
-            <h1>James <span class="b">Brown</span></h1>
+          <p class="kicker">Engineering leader · systems · product · AI frontier</p>
+          <h1>James <span class="b">Brown</span></h1>
+          <div class="hero-body">
             <p class="hero-tag">Gardener of <em>emergent systems</em> — human and machine.</p>
             <p class="hero-sub">I've come to believe good systems aren't built so much as tended. For twenty-odd years I've been lucky to work on <b>living systems — distributed data, autonomous teams, and lately AI agents</b> — usually alongside people sharper than me. You don't force a system to change; you try to be a useful catalyst, and let it find its own shape. Mostly, my craft is <b>leading and scaling the teams</b> — and lately the agents — that do the building: a force-multiplier more than a lone builder.</p>
             <p class="hook">⌁ Twenty years building high-throughput systems — and the teams behind them. From a sports-betting startup's rise to a <b>$1.5B float</b>, honed at <b>ThoughtWorks</b>, to steering AI &amp; agentic engineering at a <b>$1-trillion</b> asset manager. The story's below; there's a little lab at the end.</p>
@@ -540,6 +546,7 @@
         <p class="colophon">
           A timeline that builds the person.<br>
           The hero is a <b>live emergent simulation</b> — it speciates into the engine at the end.<br>
+          Flocking after <a href="https://www.red3d.com/cwr/boids/" target="_blank" rel="noopener noreferrer">Craig Reynolds' Boids</a> (1986) — three local rules, emergent order.<br>
           Single source → <b>HTML + dense print PDF</b>.<br>
           <b>Co-Authored-By: Claude Opus 4.8 (1M context)</b> — this CV, like speciate, was grown with agents.
         </p>
@@ -606,9 +613,16 @@
     var PRED=opts.predator?(opts.predR||120):0, FLEEF=opts.fleeForce||0.85, PANIC=opts.panic||1.8;
     var mx=-99999,my=-99999,rect=null;
     var PR=PRED, TOUCHR=PRED*1.7;   // wider flee halo for fingers (no hover lead-in)
+    var AV=opts.avoidEl||null, avx=-99999, avy=-99999, avr=0;   // persistent repulsion zone (e.g. the portrait)
+    function updAvoid(){
+      if(!AV||!rect){avx=-99999;return;}
+      var p=AV.getBoundingClientRect();
+      if(p.width<2){avx=-99999;return;}            // hidden (e.g. mobile) — no zone
+      avx=p.left+p.width/2-rect.left; avy=p.top+p.height/2-rect.top; avr=p.width*0.5+34;
+    }
     var lastW=0,lastH=0,seeded=false;
     function resize(){
-      var r=canvas.getBoundingClientRect();W=r.width;H=r.height;rect=r;
+      var r=canvas.getBoundingClientRect();W=r.width;H=r.height;rect=r;updAvoid();
       if(W<2||H<2)return;
       var dw=Math.abs(W-lastW),dh=Math.abs(H-lastH);
       if(seeded&&dw<1&&dh<1)return;                 // nothing actually changed
@@ -639,6 +653,8 @@
         a.vx+=sx*.06;a.vy+=sy*.06;
         if(PRED&&mx>-9000){var pdx=a.x-mx,pdy=a.y-my,pd2=pdx*pdx+pdy*pdy;
           if(pd2<PR*PR&&pd2>0.01){var pd=Math.sqrt(pd2),pf=1-pd/PR;a.vx+=(pdx/pd)*pf*FLEEF;a.vy+=(pdy/pd)*pf*FLEEF;if(pf>a.flee)a.flee=pf;}}
+        if(AV&&avx>-9000){var adx=a.x-avx,ady=a.y-avy,ad2=adx*adx+ady*ady;
+          if(ad2<avr*avr&&ad2>0.01){var ad=Math.sqrt(ad2),af=1-ad/avr;a.vx+=(adx/ad)*af*FLEEF;a.vy+=(ady/ad)*af*FLEEF;var aff=af*0.55;if(aff>a.flee)a.flee=aff;}}
         var sp=Math.sqrt(a.vx*a.vx+a.vy*a.vy);
         if(sp>0){var t=a.cruise*(1+a.flee*PANIC);a.vx=a.vx/sp*t;a.vy=a.vy/sp*t;}
         a.flee*=0.94;
@@ -663,10 +679,10 @@
         }
       }
     }
-    var running=false;
-    function frame(){if(!running)return;step();draw();requestAnimationFrame(frame);}
-    function play(){if(running||reduce)return;running=true;requestAnimationFrame(frame);}
-    function pause(){running=false;}
+    var running=false,raf=0;
+    function frame(){if(!running)return;step();draw();raf=requestAnimationFrame(frame);}
+    function play(){if(running||reduce)return;running=true;cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);}
+    function pause(){running=false;cancelAnimationFrame(raf);}
     resize();
     window.addEventListener('resize',resize);
     if(PRED){
@@ -676,7 +692,7 @@
       window.addEventListener('pointerdown',setP,{passive:true});   // tap / first contact scatters instantly
       window.addEventListener('pointerup',clearTouch,{passive:true});
       window.addEventListener('pointercancel',clearTouch,{passive:true});
-      window.addEventListener('scroll',function(){rect=canvas.getBoundingClientRect();},{passive:true});
+      window.addEventListener('scroll',function(){rect=canvas.getBoundingClientRect();updAvoid();},{passive:true});
       document.addEventListener('pointerleave',function(){mx=my=-99999;});
     }
     document.addEventListener('visibilitychange',function(){if(document.hidden)pause();else play();});
@@ -686,7 +702,7 @@
 
   var heroC=document.getElementById('swarm');
   if(heroC&&heroC.getContext){
-    var heroFlock=Flock(heroC,{density:850,maxN:1400,max:0.8,minSpeed:0.12,fade:0.34,fast:0.62,predator:true,predR:130,fleeForce:0.9,panic:1.9});
+    var heroFlock=Flock(heroC,{density:850,maxN:1400,max:0.8,minSpeed:0.12,fade:0.34,fast:0.62,predator:true,predR:130,fleeForce:0.9,panic:1.9,avoidEl:document.querySelector('.portrait')});
     if('IntersectionObserver' in window && !reduce){
       new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)heroFlock.play();else heroFlock.pause();});},{threshold:0}).observe(heroC);
     }
