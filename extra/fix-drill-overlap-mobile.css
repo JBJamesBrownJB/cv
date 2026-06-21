@@ -1,0 +1,7 @@
+/* Prevent the small-screen drill overlap with the profile links
+   Applied to the existing index.html CSS inside @media(max-width:820px)
+*/
+
+.hero { padding-bottom: 72px !important; }
+.drill { z-index: 9999 !important; }
+.links { position: relative; z-index: 1 !important; }
