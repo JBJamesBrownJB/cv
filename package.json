@@ -4,7 +4,9 @@
   "private": true,
   "description": "Interactive single-file CV — behavioural test suite (Playwright)",
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "pdf": "node scripts/build-pdf.js",
+    "build": "npm run pdf"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0"
