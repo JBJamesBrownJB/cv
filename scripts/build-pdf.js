@@ -7,7 +7,9 @@ const url = require('url');
 
 (async () => {
   const root = path.resolve(__dirname, '..');
-  const file = url.pathToFileURL(path.join(root, 'index.html')).href;
+  // ?test=1 skips the WebGL 3D portrait (hidden in print anyway) so the PDF build
+  // doesn't depend on the three.js CDN — output is identical (print shows the photo).
+  const file = url.pathToFileURL(path.join(root, 'index.html')).href + '?test=1';
   const out = path.join(root, 'JB_CV.pdf');
 
   const browser = await chromium.launch();

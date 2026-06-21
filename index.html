@@ -102,10 +102,10 @@
   .portrait::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1px solid var(--teal);opacity:.5;-webkit-mask:radial-gradient(closest-side,transparent 92%,#000 93%);mask:radial-gradient(closest-side,transparent 92%,#000 93%);transition:opacity .25s,border-color .25s}
   .portrait:hover::after{opacity:.95;border-color:var(--gold)}
   .p3d{display:block;position:relative;width:100%;height:100%;border-radius:50%}
-  .p3d:focus-visible{outline:2px solid var(--teal);outline-offset:6px}
-  .p3d-badge{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:#06140a;background:var(--teal);padding:2px 9px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,.45);transition:background .25s,transform .25s;z-index:3}
-  .p3d:hover .p3d-badge{background:var(--gold);transform:translateX(-50%) translateY(-1px)}
-  @media print{.p3d-badge{display:none!important}}
+  .p3d canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;opacity:0;transition:opacity .7s ease;z-index:2;background:radial-gradient(circle at 50% 40%,#16322e 0%,#0a1513 72%)}
+  .p3d canvas.ready{opacity:1}
+  .p3d.is3d img{visibility:hidden}
+  @media print{.p3d canvas{display:none!important}}
   .drill{position:absolute;left:26px;bottom:22px;z-index:2;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim);display:flex;align-items:center;gap:9px}
   .drill:hover{color:var(--teal)}
   .drill:focus-visible{outline:2px solid var(--teal);outline-offset:4px;border-radius:4px}
@@ -385,7 +385,7 @@
               <a class="dl" href="JB_CV.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download CV as PDF"><span aria-hidden="true">↓</span> PDF</a>
             </nav>
           </div>
-          <div class="portrait"><a class="p3d" href="https://sketchfab.com/3d-models/me-obj-b33f01e9fba1440388f03f136f15fbfb" target="_blank" rel="noopener noreferrer" aria-label="View an interactive 3D model of James Brown on Sketchfab"><img src="images/3djb.png" alt="" width="178" height="178" decoding="async" /><span class="p3d-badge" aria-hidden="true">↻ 3D</span></a></div>
+          <div class="portrait"><div class="p3d"><canvas id="head3d" aria-hidden="true"></canvas><img src="images/3djb.png" alt="" width="178" height="178" decoding="async" /></div></div>
         </div>
       </div>
     </div>
@@ -838,6 +838,93 @@
   window.addEventListener('load',sched);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(sched);
   sched();setTimeout(sched,500);setTimeout(sched,1400);
+})();
+</script>
+<!-- live 3D portrait (progressive enhancement; falls back to the photo) -->
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+(async function(){
+  "use strict";
+  var host = document.querySelector('.p3d');
+  var canvas = document.getElementById('head3d');
+  if(!host || !canvas) return;
+  if(/[?&]test=1\b/.test(location.search)) return; // skip the heavy WebGL model in the test harness
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(window.innerWidth <= 820) return;            // portrait is hidden on mobile
+
+  var THREE, GLTFLoader;
+  try {
+    THREE = await import('three');
+    ({ GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js'));
+  } catch(e){ return; }                            // CDN blocked / offline -> keep the photo
+
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true }); }
+  catch(e){ return; }                              // no WebGL -> keep the photo
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  var scene = new THREE.Scene();
+  var cam = new THREE.PerspectiveCamera(28, 1, 0.1, 100);
+  cam.position.set(0, 0, 3.1);
+  scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+  var key = new THREE.DirectionalLight(0xfff1da, 1.35); key.position.set(0.6, 0.9, 1.4); scene.add(key);
+  var rim = new THREE.DirectionalLight(0x3fe0c8, 0.7);  rim.position.set(-1.2, 0.3, -0.7); scene.add(rim);
+
+  var pivot = new THREE.Group(); scene.add(pivot);
+  var BASE_Y = -0.44; // neutral facing: camera-left, eased back a touch right
+  var BASE_X = 0.18;  // tilt the head down a touch (was angled up)
+
+  function fit(){ var r = host.getBoundingClientRect(); if(r.width<2) return; renderer.setSize(r.width, r.height, false); cam.aspect = r.width/r.height; cam.updateProjectionMatrix(); }
+
+  new GLTFLoader().load('models/jb.glb', function(gltf){
+    var model = gltf.scene;
+    var box = new THREE.Box3().setFromObject(model);
+    var s = box.getSize(new THREE.Vector3());
+    var maxDim = Math.max(s.x, s.y, s.z) || 1;
+    model.scale.setScalar(1.45 / maxDim);
+    box.setFromObject(model);                       // recompute AFTER scaling, then centre
+    var c = box.getCenter(new THREE.Vector3());
+    model.position.sub(c);
+    model.position.y -= 0.1;                         // keep headroom up top; crop the lower chest at the bottom
+    pivot.add(model);
+    fit();
+    canvas.classList.add('ready');
+    host.classList.add('is3d');
+    if(reduce){ renderer.render(scene, cam); } else { play(); }
+  }, undefined, function(){ /* load failed -> keep the photo */ });
+
+  // ---- cursor tracking ----
+  var tx = 0, ty = 0, cx = 0, cy = 0, lastMove = -10000;
+  // square-to-camera with subtle follow: small symmetric yaw/pitch from the cursor's viewport position
+  window.addEventListener('pointermove', function(e){
+    tx = Math.max(-0.2,  Math.min(0.2,  (e.clientX / window.innerWidth  - 0.5) * 0.4));
+    ty = Math.max(-0.13, Math.min(0.13, (e.clientY / window.innerHeight - 0.5) * 0.26));
+    lastMove = (e.timeStamp || performance.now());
+  }, { passive: true });
+
+  var running = false, raf = 0;
+  function frame(t){
+    if(!running) return;
+    var gy = tx, gx = ty;
+    if(t - lastMove > 2500){ gy = Math.sin(t/1000 * 0.5) * 0.09; gx = Math.sin(t/1000 * 0.37) * 0.03; }
+    cx += (gy - cx) * 0.075; cy += (gx - cy) * 0.075;
+    pivot.rotation.y = BASE_Y + cx; pivot.rotation.x = BASE_X + cy;
+    renderer.render(scene, cam);
+    raf = requestAnimationFrame(frame);
+  }
+  function play(){ if(running || reduce) return; running = true; cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); }
+  function pause(){ running = false; cancelAnimationFrame(raf); }
+
+  window.addEventListener('resize', fit);
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) pause(); else play(); });
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) play(); else pause(); }); }, { threshold: 0 }).observe(host);
+  }
 })();
 </script>
 </body>

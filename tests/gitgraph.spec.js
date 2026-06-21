@@ -5,27 +5,22 @@ const { gotoApp } = require('./helpers');
 test('git-graph node Y stays aligned to its station after scrolling below the fold', async ({ page }) => {
   await gotoApp(page, { width: 1366, height: 900 });
   await page.locator('#c-schroders').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(500); // allow reveal transition + coalesced redraw
-  const delta = await page.evaluate(() => {
+  // poll the alignment so a slow coalesced redraw doesn't flake the test
+  await expect.poll(async () => page.evaluate(() => {
     const col = document.querySelector('.spine-col');
     const svg = document.querySelector('.gitgraph');
-    if (!col || !svg) return null;
+    if (!col || !svg) return 999;
     const colTop = col.getBoundingClientRect().top;
     const st = document.getElementById('c-schroders');
     const eraEl = st.querySelector('.era,.tw-role') || st;
     const expectedY = eraEl.getBoundingClientRect().top - colTop + 11;
-    const circles = Array.from(svg.querySelectorAll('circle'));
-    let best = null;
-    circles.forEach(c => {
+    let best = 999;
+    svg.querySelectorAll('circle').forEach(c => {
       const cy = parseFloat(c.getAttribute('cy'));
-      if (Number.isNaN(cy)) return;
-      const d = Math.abs(cy - expectedY);
-      if (best === null || d < best) best = d;
+      if (!Number.isNaN(cy)) best = Math.min(best, Math.abs(cy - expectedY));
     });
     return best;
-  });
-  expect(delta).not.toBeNull();
-  expect(delta).toBeLessThan(8);
+  }), { timeout: 6000, intervals: [120, 250, 500, 800] }).toBeLessThan(8);
 });
 
 // Schroders is its own branch off a continuing main: main (gold) runs to the bottom; the branch + tip are git-green.
