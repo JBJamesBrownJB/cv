@@ -770,6 +770,15 @@
   function vl(x,y1,y2,c,w,dash){return pth('M '+x+' '+y1+' L '+x+' '+y2,c,w,dash);}
   function cv(x1,y1,x2,y2,c){var m=(y1+y2)/2;return pth('M '+x1+' '+y1+' C '+x1+' '+m+' '+x2+' '+m+' '+x2+' '+y2,c);}
   function nd(x,yy,c,o){o=o||{};return '<circle cx="'+x+'" cy="'+yy+'" r="'+(o.r||R)+'" fill="'+(o.hollow?BG:c)+'" stroke="'+c+'" stroke-width="2.4"'+(o.dash?' stroke-dasharray="3 3"':'')+'/>';}
+  // live-branch terminus: a pulsing ember throwing off sparks (static dot under reduced-motion)
+  function sparkTip(cx,cy,c){
+    if(reduce) return nd(cx,cy,c,{r:3.6});
+    var out='';
+    [[-7,13],[6,16],[-3,21],[8,10],[1,24]].forEach(function(s,i){var b=(i*0.26).toFixed(2);
+      out+='<circle cx="'+cx+'" cy="'+cy+'" r="2.1" fill="'+c+'"><animate attributeName="cx" values="'+cx+';'+(cx+s[0])+'" dur="1.25s" begin="'+b+'s" repeatCount="indefinite"/><animate attributeName="cy" values="'+cy+';'+(cy+s[1])+'" dur="1.25s" begin="'+b+'s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="1.25s" begin="'+b+'s" repeatCount="indefinite"/><animate attributeName="r" values="2.3;0.2" dur="1.25s" begin="'+b+'s" repeatCount="indefinite"/></circle>';});
+    out+='<circle cx="'+cx+'" cy="'+cy+'" r="3.6" fill="'+c+'"><animate attributeName="opacity" values="1;0.45;1" dur="1.7s" repeatCount="indefinite"/><animate attributeName="r" values="3.2;4.2;3.2" dur="1.7s" repeatCount="indefinite"/></circle>';
+    return out;
+  }
   function draw(){
     var Y={};IDS.forEach(function(id){Y[id]=yOf(id);});
     if(Y['c-schroders']==null||Y['c-cardiff']==null)return;
@@ -783,18 +792,14 @@
       var sp=[vl(X,Y['c-cardiff'],tip,GOLD,3)];
       var COL={'c-cardiff':GOLD,'c-betfair':GOLD,'c-genius':TEAL,'c-msc':TEAL,'c-tw':CORAL,'c-ho':CORAL,'c-bmmro':CORAL,'c-sims':CORAL,'c-schroders':GREEN};
       IDS.forEach(function(id){sp.push(nd(X,Y[id],COL[id],{hollow:(id==='c-cardiff'||id==='c-msc'),dash:id==='c-cardiff',r:id==='c-schroders'?7.5:R}));});
-      if(!reduce){[0,0.8,1.6].forEach(function(d){sp.push('<circle cx="'+X+'" cy="'+tip+'" r="6" fill="none" stroke="'+GREEN+'" stroke-width="2"><animate attributeName="r" values="6;24" dur="2.4s" begin="'+d+'s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0" dur="2.4s" begin="'+d+'s" repeatCount="indefinite"/></circle>');});sp.push('<circle cx="'+X+'" cy="'+tip+'" r="6.5" fill="'+GREEN+'" stroke="'+BG+'" stroke-width="1.5"><animate attributeName="r" values="6;7.6;6" dur="2.4s" repeatCount="indefinite"/></circle>');}else{sp.push('<circle cx="'+X+'" cy="'+tip+'" r="13" fill="none" stroke="'+GREEN+'" stroke-width="1.5" opacity="0.3"/><circle cx="'+X+'" cy="'+tip+'" r="6.5" fill="'+GREEN+'"/>');}
+      sp.push(sparkTip(X,tip,GREEN));
       svg.innerHTML=sp.join(''); return;
     }
     var gFork=(Y['c-betfair']+Y['c-genius'])/2, gMerge=(Y['c-msc']+Y['c-tw'])/2;
     var twFork=gMerge+7, twMerge=_bot('c-sims')+4, sFork=_top('c-schroders')-20, mEnd=_bot('c-schroders')+14;
     var p=[];
     p.push(vl(L[0],Y['c-cardiff'],mEnd,GOLD,3));
-    if(!reduce){
-      [[-7,13],[6,16],[-3,21],[8,10],[1,24]].forEach(function(s,i){var b=(i*0.26).toFixed(2);
-        p.push('<circle cx="'+L[0]+'" cy="'+mEnd+'" r="2.1" fill="'+GOLD+'"><animate attributeName="cx" values="'+L[0]+';'+(L[0]+s[0])+'" dur="1.25s" begin="'+b+'s" repeatCount="indefinite"/><animate attributeName="cy" values="'+mEnd+';'+(mEnd+s[1])+'" dur="1.25s" begin="'+b+'s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.95;0" dur="1.25s" begin="'+b+'s" repeatCount="indefinite"/><animate attributeName="r" values="2.3;0.2" dur="1.25s" begin="'+b+'s" repeatCount="indefinite"/></circle>');});
-      p.push('<circle cx="'+L[0]+'" cy="'+mEnd+'" r="3.6" fill="'+GOLD+'"><animate attributeName="opacity" values="1;0.45;1" dur="1.7s" repeatCount="indefinite"/><animate attributeName="r" values="3.2;4.2;3.2" dur="1.7s" repeatCount="indefinite"/></circle>');
-    }else{ p.push(nd(L[0],mEnd,GOLD,{r:3.6})); }
+    p.push(sparkTip(L[0],mEnd,GOLD));
     p.push(cv(L[0],gFork,L[1],Y['c-genius'],TEAL));
     p.push(vl(L[1],Y['c-genius'],Y['c-msc'],TEAL));
     p.push(cv(L[1],Y['c-msc'],L[0],gMerge,TEAL));
@@ -805,13 +810,7 @@
     p.push(cv(L[0],sFork,L[1],Y['c-schroders'],GREEN));
     var tipY=_bot('c-schroders')-20;
     p.push(vl(L[1],Y['c-schroders'],tipY,GREEN));
-    if(!reduce){
-      [0,0.8,1.6].forEach(function(d){p.push('<circle cx="'+L[1]+'" cy="'+tipY+'" r="6" fill="none" stroke="'+GREEN+'" stroke-width="2"><animate attributeName="r" values="6;30" dur="2.4s" begin="'+d+'s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0" dur="2.4s" begin="'+d+'s" repeatCount="indefinite"/></circle>');});
-      p.push('<circle cx="'+L[1]+'" cy="'+tipY+'" r="6.5" fill="'+GREEN+'" stroke="'+BG+'" stroke-width="1.5"><animate attributeName="r" values="6;7.6;6" dur="2.4s" repeatCount="indefinite"/></circle>');
-    }else{
-      p.push('<circle cx="'+L[1]+'" cy="'+tipY+'" r="17" fill="none" stroke="'+GREEN+'" stroke-width="1.5" opacity="0.3"/>');
-      p.push('<circle cx="'+L[1]+'" cy="'+tipY+'" r="6.5" fill="'+GREEN+'"/>');
-    }
+    p.push(sparkTip(L[1],tipY,GREEN));
     p.push('<text x="'+(L[1]+16)+'" y="'+(tipY+4)+'" fill="'+GREEN+'" font-family="JetBrains Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.3">· in progress</text>');
     p.push(nd(L[0],Y['c-cardiff'],GOLD,{hollow:true,dash:true}));
     p.push(nd(L[0],Y['c-betfair'],GOLD,{r:5.5}));
