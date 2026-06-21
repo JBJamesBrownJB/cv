@@ -605,14 +605,24 @@
     var speciate=!!opts.speciate;
     var PRED=opts.predator?(opts.predR||120):0, FLEEF=opts.fleeForce||0.85, PANIC=opts.panic||1.8;
     var mx=-99999,my=-99999,rect=null;
+    var lastW=0,lastH=0,seeded=false;
     function resize(){
       var r=canvas.getBoundingClientRect();W=r.width;H=r.height;rect=r;
       if(W<2||H<2)return;
-      canvas.width=Math.floor(W*DPR);canvas.height=Math.floor(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0);
+      var dw=Math.abs(W-lastW),dh=Math.abs(H-lastH);
+      if(seeded&&dw<1&&dh<1)return;                 // nothing actually changed
+      // mobile address-bar show/hide changes height only — keep the flock flying, don't restart it
+      var bigChange=!seeded||dw>2||dh>240;
+      lastW=W;lastH=H;
+      if(bigChange){
+        canvas.width=Math.floor(W*DPR);canvas.height=Math.floor(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0);
+        ctx.fillStyle=BG;ctx.fillRect(0,0,W,H);
+      }
+      if(seeded&&!bigChange)return;                 // height-only wobble: leave agents untouched
       COUNT=Math.max(minN,Math.min(maxN,Math.round((W*H)/density)));
       agents=[];for(var i=0;i<COUNT;i++){var a=rand(0,6.28),dna=rand(.6,1.6),cr=MIN+(MAX-MIN)*((dna-.6)/1.0);
         agents.push({x:rand(0,W),y:rand(0,H),vx:Math.cos(a)*cr,vy:Math.sin(a)*cr,dna:dna,hue:Math.random(),cruise:cr,flee:0});}
-      ctx.fillStyle=BG;ctx.fillRect(0,0,W,H);
+      seeded=true;
       if(opts.onCount)opts.onCount(COUNT);
     }
     function key(x,y){return x+','+y;}
