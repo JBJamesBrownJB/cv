@@ -335,6 +335,8 @@
     .station{padding-bottom:12px;break-inside:avoid}
     /* uniform gold node on the trunk for every entry (incl. the ThoughtWorks gigs) */
     .station::before,.tw-era .station::before{display:block!important;content:""!important;position:absolute!important;left:-21.1px!important;top:5px!important;width:7px!important;height:7px!important;border-radius:50%!important;border:1.5px solid var(--gold-deep)!important;background:var(--gold)!important;box-shadow:none!important}   /* 7px = odd diameter: centre lands on the 1px trunk's half-pixel (8px can't, by parity) */
+    /* root commit terminates the trunk: white out the .spine-col rule below the BSc Geology dot, so the line ends at the root node (as it does on screen) instead of carrying on */
+    .station.root::after{content:"";position:absolute;left:-19px;top:13px;bottom:-80px;width:3px;background:#fff}
     /* type scale (Lupton): quiet era label · role title · the one metric · body · supporting */
     .era{font-size:8.5px;color:var(--dim);letter-spacing:.04em;margin-bottom:1px}
     .station h3{font-size:15px;font-weight:700;line-height:1.15;margin:2px 0 3px}
