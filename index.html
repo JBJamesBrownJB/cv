@@ -333,7 +333,7 @@
     .spine .aura,.spine .base,.spine .fill{display:none}
     .station{padding-bottom:12px;break-inside:avoid}
     /* uniform gold node on the trunk for every entry (incl. the ThoughtWorks gigs) */
-    .station::before,.tw-era .station::before{display:block!important;content:""!important;position:absolute!important;left:-20.5px!important;top:5px!important;width:8px!important;height:8px!important;border-radius:50%!important;border:1.5px solid var(--gold-deep)!important;background:var(--gold)!important;box-shadow:none!important}
+    .station::before,.tw-era .station::before{display:block!important;content:""!important;position:absolute!important;left:-21.6px!important;top:5px!important;width:8px!important;height:8px!important;border-radius:50%!important;border:1.5px solid var(--gold-deep)!important;background:var(--gold)!important;box-shadow:none!important}
     /* type scale (Lupton): quiet era label · role title · the one metric · body · supporting */
     .era{font-size:8.5px;color:var(--dim);letter-spacing:.04em;margin-bottom:1px}
     .station h3{font-size:15px;font-weight:700;line-height:1.15;margin:2px 0 3px}
@@ -855,7 +855,7 @@
     p.push(nd(L[2],Y['c-ho'],CORAL));
     p.push(nd(L[2],Y['c-bmmro'],CORAL));
     p.push(nd(L[2],Y['c-sims'],CORAL));
-    p.push(nd(L[1],Y['c-schroders'],GREEN));              // Schroders commit node — consistent with every other role; the live HEAD ember sits above
+    // Schroders is the live, uncommitted HEAD — no commit node, just the pulsing spark terminus above.
     svg.innerHTML=p.join('');
   }
   var pending=0;
