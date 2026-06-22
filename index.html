@@ -879,7 +879,7 @@
       var sp=[vl(X,tip,Y['c-cardiff'],GOLD,3)];
       var COL={'c-cardiff':GOLD,'c-betfair':GOLD,'c-genius':TEAL,'c-msc':TEAL,'c-tw':CORAL,'c-ho':CORAL,'c-bmmro':CORAL,'c-sims':CORAL,'c-schroders':GREEN};
       IDS.forEach(function(id){if(id==='c-schroders')return;sp.push(nd(X,Y[id],COL[id],{hollow:(id==='c-cardiff'||id==='c-msc'),dash:id==='c-cardiff'}));});   // Schroders is the live HEAD — spark only, no node (matches desktop)
-      sp.push(sparkTip(X,tip,GREEN));
+      sp.push(sparkTip(X,tip,GOLD));   // single gold trunk on mobile — gold ember, not green
       svg.innerHTML=sp.join(''); return;
     }
     // newest-first (git log): present at the TOP, root at the bottom.
