@@ -2,6 +2,10 @@
 research/
 ideas.md
 
+# Build artifact — regenerated from index.html by CI (npm run pdf) on every deploy.
+# Tracking it only lets a stale copy drift out of sync with the live site.
+JB_CV.pdf
+
 # Scratch / preview artifacts
 review/
 review2/

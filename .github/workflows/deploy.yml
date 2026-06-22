@@ -36,6 +36,10 @@ jobs:
           cp index.html JB_CV.pdf _site/
           cp -r images _site/
           cp -r models _site/
+          # Cache-bust the PDF link: the file URL is otherwise identical on every
+          # deploy, so browsers/CDN keep serving a previously-cached copy even though
+          # CI rebuilt the PDF. Stamp the commit SHA so each deploy gets a fresh URL.
+          sed -i "s|href=\"JB_CV.pdf\"|href=\"JB_CV.pdf?v=${GITHUB_SHA::7}\"|g" _site/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
