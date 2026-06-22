@@ -324,6 +324,8 @@
     footer .links a[href*="github.com/JBJamesBrownJB"]::after{content:" github.com/JBJamesBrownJB"}
     footer .links a[href*="medium.com"]::after{content:" medium.com/@jameskinnahbrown"}
     footer .links a[href^="mailto:"]::after{content:" jameskinnahbrown@gmail.com"}
+    /* on paper these run full-width like the body content, not in a narrow ch-capped column */
+    .colophon{max-width:none} .book{max-width:none}
     /* journey: KILL the section-level break rule; let it flow, butt the stations */
     .journey{padding:12px 0 0}
     .journey-head{margin-bottom:8px} .journey-head h2{font-size:19px} .journey-head p{font-size:9.5px}
@@ -344,7 +346,7 @@
     .ladder,.scopes{font-size:8.5px;gap:5px;margin:3px 0} .ladder span,.scopes span{padding:2px 6px} .ladder-cap{font-size:8px;margin:0 0 5px}
     .scopes span.hl{color:var(--bone-2)!important;border-color:var(--line-2)!important}
     .src{font-size:7.5px;padding:0 4px;border-color:var(--line);margin-left:5px}
-    .era-banner.tw{margin:6px 0 8px;padding:6px 0} .tw-plate{padding:5px 9px;border:1px solid #d9d3c4;box-shadow:none} .tw-logo{height:15px} .tw-role{font-size:9px;margin-top:5px} .tw-note{font-size:8.5px;margin-top:3px}
+    .era-banner.tw{margin:6px 0 8px;padding:6px 0} .tw-plate{padding:5px 9px;border:1px solid #d9d3c4;box-shadow:none} .tw-logo{height:15px} .tw-role{font-size:9px;margin-top:5px} .tw-note{font-size:8.5px;margin-top:3px;max-width:none}
     .tw-era::before{display:none}
     .ctas{margin-top:7px;gap:6px} .cta{font-size:9px;padding:4px 8px;border-color:var(--line-2)!important;color:var(--bone-2)!important}
     /* print: the git graph is hidden, so its branch labels are orphaned decoration — drop them, keep the career */
