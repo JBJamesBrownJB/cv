@@ -306,9 +306,9 @@
     .reveal{opacity:1!important;transform:none!important}
     /* compact masthead */
     .hero{min-height:auto;border-bottom:1.5px solid var(--gold);padding:0 0 8px;break-after:avoid}
-    .hero-grid{grid-template-columns:1fr auto;gap:14px;align-items:center}
-    .portrait{display:block;width:92px}
-    /* print: let the intro text stretch the full width toward the portrait (kill screen caps) */
+    .hero-grid{grid-template-columns:1fr;gap:14px;align-items:center}
+    .portrait{display:none}   /* no photo on paper — also dodges the screen-computed nestle transform leaking into print */
+    /* print: let the intro text stretch the full width (kill screen caps) */
     .hero-body{max-width:none!important} .hook{max-width:none!important} .hero-tag{max-width:none!important}
     h1{font-size:34px}
     .kicker{margin-bottom:8px;font-size:9px}
