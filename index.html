@@ -121,6 +121,7 @@
   .eyebrow::before{content:"";width:24px;height:1px;background:var(--teal);opacity:.7}
   .journey-head h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,3.6vw,40px);letter-spacing:-.02em;margin:0 0 10px;line-height:1.05}
   .journey-head p{color:var(--bone-2);max-width:60ch;margin:0;font-size:16px}
+  .journey-head .eyebrow{max-width:none;margin-bottom:10px}   /* not a body paragraph: don't let .journey-head p cap it to 60ch (wraps "first") or zero its bottom margin — match the h2→sub gap */
 
   .rail{display:grid;grid-template-columns:128px 1fr;gap:0;position:relative}
   .instruments{position:sticky;top:26px;align-self:start;height:max-content;padding-right:18px;font-family:var(--mono);font-size:11px;line-height:1.5}
