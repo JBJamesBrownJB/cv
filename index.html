@@ -847,7 +847,7 @@
     }
     // newest-first (git log): present at the TOP, root at the bottom.
     var EL=16;                                             // fixed junction elbow: every fork/merge is the same short diagonal (GitHub-style)
-    var mTop=_top('c-schroders')-14;                       // live end of main, above HEAD
+    var mTop=Y['c-schroders'];                             // live end of main: spark sits on the Schroders era line, aligned with the "HEAD → schroders" text
     var gFork=_bot('c-genius')-EL;                        // teal fork: at the era's OLDER edge (bottom of genius)
     var gMerge=Y['c-msc']-EL;                             // teal merge: into main at the msc commit (newest, top)
     var twTop=Y['c-tw']-EL, twBot=_bot('c-ho')+4;          // coral: tw banner (top) → ho (bottom)
@@ -866,7 +866,6 @@
     var tipY=mTop;                                         // green HEAD ember at the very top
     p.push(vl(L[1],sFork,tipY,GREEN));                     // branch spans the full Schroders era up to HEAD
     p.push(sparkTip(L[1],tipY,GREEN));
-    p.push('<text x="'+(L[1]+16)+'" y="'+(tipY+4)+'" fill="'+GREEN+'" font-family="JetBrains Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.3">· in progress</text>');
     p.push(nd(L[0],Y['c-cardiff'],GOLD,{hollow:true,dash:true}));
     p.push(nd(L[0],Y['c-betfair'],GOLD,{r:5.5}));
     p.push(nd(L[1],Y['c-genius'],TEAL));
