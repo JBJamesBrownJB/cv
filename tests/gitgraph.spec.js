@@ -4,6 +4,8 @@ const { gotoApp } = require('./helpers');
 // Regression: below-the-fold git-graph nodes were measured +20px low (reveal translateY) and never re-corrected on scroll.
 test('git-graph node Y stays aligned to its station after scrolling below the fold', async ({ page }) => {
   await gotoApp(page, { width: 1366, height: 900 });
+  // scroll all the way to the live branch, then assert the lowest committed node (c-sims) stays aligned.
+  // (c-schroders is the in-progress branch — it has no node sphere, only a spark terminus.)
   await page.locator('#c-schroders').scrollIntoViewIfNeeded();
   // poll the alignment so a slow coalesced redraw doesn't flake the test
   await expect.poll(async () => page.evaluate(() => {
@@ -11,7 +13,7 @@ test('git-graph node Y stays aligned to its station after scrolling below the fo
     const svg = document.querySelector('.gitgraph');
     if (!col || !svg) return 999;
     const colTop = col.getBoundingClientRect().top;
-    const st = document.getElementById('c-schroders');
+    const st = document.getElementById('c-sims');
     const eraEl = st.querySelector('.era,.tw-role') || st;
     const expectedY = eraEl.getBoundingClientRect().top - colTop + 11;
     let best = 999;

@@ -101,6 +101,9 @@
   .portrait img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:1px solid var(--line-2)}
   .portrait::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1px solid var(--teal);opacity:.5;-webkit-mask:radial-gradient(closest-side,transparent 92%,#000 93%);mask:radial-gradient(closest-side,transparent 92%,#000 93%);transition:opacity .25s,border-color .25s}
   .portrait:hover::after{opacity:.95;border-color:var(--gold)}
+  /* signet monogram notched into the bottom of the ring — "it's me" mark */
+  .portrait .sig{position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);z-index:3;pointer-events:none;font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:.14em;line-height:1;color:var(--gold);background:var(--bg);border:1px solid var(--gold-deep);border-radius:999px;padding:3px 8px 3px 10px;transition:color .25s,border-color .25s,box-shadow .25s}
+  .portrait:hover .sig{border-color:var(--gold);box-shadow:0 0 11px rgba(232,178,58,.4)}
   .p3d{display:block;position:relative;width:100%;height:100%;border-radius:50%}
   .p3d canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;opacity:0;transition:opacity .7s ease;z-index:2;background:radial-gradient(circle at 50% 40%,#16322e 0%,#0a1513 72%)}
   .p3d canvas.ready{opacity:1}
@@ -401,7 +404,7 @@
               <a class="dl" href="JB_CV.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download CV as PDF"><span aria-hidden="true">↓</span> PDF</a>
             </nav>
           </div>
-          <div class="portrait"><div class="p3d"><canvas id="head3d" aria-hidden="true"></canvas><img src="images/3djb.png" alt="" width="178" height="178" decoding="async" /></div></div>
+          <div class="portrait"><div class="p3d"><canvas id="head3d" aria-hidden="true"></canvas><img src="images/3djb.png" alt="" width="178" height="178" decoding="async" /></div><span class="sig" aria-hidden="true">JB</span></div>
         </div>
       </div>
     </div>
@@ -852,7 +855,7 @@
     p.push(nd(L[2],Y['c-ho'],CORAL));
     p.push(nd(L[2],Y['c-bmmro'],CORAL));
     p.push(nd(L[2],Y['c-sims'],CORAL));
-    p.push(nd(L[1],Y['c-schroders'],GREEN,{r:8}));
+    // Schroders is the live, in-progress branch — no committed node sphere, just the terminating spark below.
     svg.innerHTML=p.join('');
   }
   var pending=0;
@@ -915,6 +918,7 @@
     var c = box.getCenter(new THREE.Vector3());
     model.position.sub(c);
     model.position.y -= 0.1;                         // keep headroom up top; crop the lower chest at the bottom
+    model.position.x -= 0.02;                        // nudge a touch toward camera-left
     pivot.add(model);
     fit();
     canvas.classList.add('ready');
