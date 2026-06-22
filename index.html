@@ -557,17 +557,17 @@
             <a class="repo-link" href="https://github.com/JBJamesBrownJB/speciate" target="_blank" rel="noopener noreferrer">github.com/JBJamesBrownJB/speciate ↗</a>
           </div>
           <div class="stats">
-            <div class="stat"><div class="n">1 Million</div><div class="l">agents @ 20&nbsp;Hz · real-time</div></div>
-            <div class="stat t"><div class="n">6.3×</div><div class="l">parallel movement · Rayon</div></div>
-            <div class="stat"><div class="n">~4.25</div><div class="l">IPC · hot-loop instr/cycle</div></div>
-            <div class="stat t"><div class="n">0.77%</div><div class="l">branch-miss · hot loops</div></div>
-            <div class="stat"><div class="n">0-copy</div><div class="l">Rust↔JS Float32 seam</div></div>
-            <div class="stat t"><div class="n">32&nbsp;B</div><div class="l">per-entity spatial record</div></div>
+            <div class="stat"><div class="n">1 Million</div><div class="l">autonomous creatures</div></div>
+            <div class="stat t"><div class="n">90 FPS</div><div class="l">real-time · one machine</div></div>
+            <div class="stat"><div class="n">L1–L3</div><div class="l">cache-resident hot set</div></div>
+            <div class="stat t"><div class="n">0-copy</div><div class="l">Rust↔JS Float32 seam</div></div>
+            <div class="stat"><div class="n">All cores</div><div class="l">fearless parallelism · Rust</div></div>
+            <div class="stat t"><div class="n">ECS</div><div class="l">Bevy · Struct-of-Arrays</div></div>
           </div>
           <div class="cap-cols">
             <div>
-              <p><b>Twenty years of trading-platform habits, in Rust.</b> A <b>Bevy ECS</b> core — Struct-of-Arrays archetypes, a contiguous spatial buffer packed by a zero-allocation parallel counting sort — keeps the hot working set cache-resident. <b>“My L3 is my RAM.”</b> It now sustains <b>a million DNA-driven creatures at 20&nbsp;Hz</b> on a single machine — 48.5&nbsp;ms of a 50&nbsp;ms tick budget, <b>zero dropped frames</b>, cross-checked by a seed-reproducible benchmark harness.</p>
-              <p><b>Joined to the richest frontend ecosystem in the world.</b> That Rust core meets JavaScript — PixiJS / WebGL — at a <b>zero-copy seam</b> where most hybrids die: positions cross the boundary as a shared <code>Float32Array</code> over a NAPI-RS double buffer, no per-frame serialization tax. Two worlds, mechanical sympathy intact.</p>
+              <p><b>Twenty years of trading-platform habits, in Rust.</b> A <b>Bevy ECS</b> core — Struct-of-Arrays archetypes, a contiguous spatial buffer packed by a zero-allocation parallel counting sort — keeps the hot working set cache-resident. <b>“My L1/2 is my RAM.”</b> It now sustains <b>a million DNA-driven creatures at 90&nbsp;fps</b> on a single machine — every optimisation measured by a seed-reproducible benchmark harness.</p>
+              <p><b>Joined to the richest frontend ecosystem in the world.</b> That Rust core meets JavaScript — PixiJS / WebGL — at a <b>zero-copy seam</b> where most hybrids die: positions cross the boundary as a shared <code>Float32Array</code> over a NAPI-RS <b>ring buffer</b>, interpolated frontend-side with backward reconciliation for smooth motion — no per-frame serialization tax. Two worlds, mechanical sympathy intact.</p>
               <p><b>And built almost entirely by AI agents</b> — an auditable agentic SDLC (named subagents, sprint commands, TDD-enforcing hooks, AGENTS.md contracts), the same methods now shaping the agentic strategy at Schroders.</p>
             </div>
             <div class="diff">
