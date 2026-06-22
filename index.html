@@ -289,16 +289,16 @@
   /* ===================== PRINT / PDF (dense, butted, no whitespace) ===================== */
   @media print{
     @page{size:A4;margin:11mm}
-    :root{--bg:#fff;--bg-2:#fff;--panel:#fff;--panel-2:#fff;--bone:#16201E;--bone-2:#34423F;--dim:#5d6a67;--slate:#8a938f;--teal:#0D7A6C;--teal-deep:#0b6357;--gold:#9A6A12;--gold-deep:#7c530c;--git-green:#2f8f3f;--human-grey:#8a928f;--tw-coral:#b04a5e;--line:rgba(20,30,28,.16);--line-2:rgba(20,30,28,.3)}
+    :root{--bg:#fff;--bg-2:#fff;--panel:#fff;--panel-2:#fff;--bone:#16201E;--bone-2:#34423F;--dim:#5d6a67;--slate:#8a938f;--teal:#16201E;--teal-deep:#16201E;--gold:#9A6A12;--gold-deep:#7c530c;--git-green:#16201E;--human-grey:#8a928f;--tw-coral:#34423F;--line:rgba(20,30,28,.16);--line-2:rgba(20,30,28,.3)}
     body{background:#fff;color:#16201E;font-size:10px;line-height:1.34}
     #swarm,.hero-veil,.drill,#speciate-canvas,.speci-cap,.tw-cred,.gitgraph{display:none!important}
-    .spine{display:none!important} .station::before{display:none!important}
-    .spine-col{padding-left:0!important;border-left:none!important}
-    /* ---- print: no rails. ThoughtWorks gigs grouped in one chapter panel ---- */
-    .tw-era{margin:10px 0 12px!important;padding:10px 16px 6px!important;border:1px solid #e6cfcf!important;border-left:3px solid var(--tw-coral)!important;border-radius:7px;background:#fbf5f2!important}
+    .spine{display:none!important}
+    /* one calm left edge: a single gold "trunk" rule with evenly-spaced nodes — the distilled git nod on paper */
+    .spine-col{padding-left:16px!important;border-left:1px solid var(--gold-deep)!important}
+    /* ---- print: no panel. ThoughtWorks gigs sit on the same left edge as every other entry ---- */
+    .tw-era{margin:0!important;padding:0!important;border:none!important;border-radius:0!important;background:none!important}
     .tw-era::before{display:none!important}
     .tw-era #c-ho,.tw-era #c-bmmro,.tw-era #c-sims{margin-left:0!important;padding-left:0!important;border-left:none!important}
-    .tw-era #c-ho,.tw-era #c-bmmro{border-bottom:1px solid #efe2dd;padding-bottom:7px!important;margin-bottom:7px!important}
     .reveal{opacity:1!important;transform:none!important}
     /* compact masthead */
     .hero{min-height:auto;border-bottom:1.5px solid var(--gold);padding:0 0 8px;break-after:avoid}
@@ -327,21 +327,27 @@
     .journey-head{margin-bottom:8px} .journey-head h2{font-size:19px} .journey-head p{font-size:9.5px}
     .rail{grid-template-columns:1fr}
     .instruments{display:none}
-    .spine-col{padding-left:20px}
-    .spine .aura{display:none}
-    .spine .base{background:var(--gold);width:1.5px;opacity:.5}
-    .spine .fill{display:none}
-    .station{padding-bottom:11px;break-inside:avoid}
-    .station::before{left:-19px;top:4px;width:9px;height:9px;border-width:1.5px;box-shadow:none;background:var(--gold)!important;border-color:var(--gold)!important}
-    .station h3{font-size:14px;margin:3px 0 2px}
-    .metric{font-size:9.5px;margin-bottom:5px}
-    .station p{font-size:9.5px;max-width:none}
-    .forged{font-size:9.5px;margin-top:5px} .annot{font-size:9px;margin-top:5px}
+    .spine .aura,.spine .base,.spine .fill{display:none}
+    .station{padding-bottom:12px;break-inside:avoid}
+    /* uniform gold node on the trunk for every entry (incl. the ThoughtWorks gigs) */
+    .station::before,.tw-era .station::before{display:block!important;content:""!important;position:absolute!important;left:-20px!important;top:5px!important;width:8px!important;height:8px!important;border-radius:50%!important;border:1.5px solid var(--gold-deep)!important;background:var(--gold)!important;box-shadow:none!important}
+    /* type scale (Lupton): quiet era label · role title · the one metric · body · supporting */
+    .era{font-size:8.5px;color:var(--dim);letter-spacing:.04em;margin-bottom:1px}
+    .station h3{font-size:15px;font-weight:700;line-height:1.15;margin:2px 0 3px}
+    .metric{font-size:10.5px;font-weight:600;line-height:1.3;margin:1px 0 6px} .metric .t{color:inherit!important}
+    .station p{font-size:9.5px;line-height:1.4;max-width:none}
+    .forged{font-size:9px;margin-top:5px;color:var(--bone-2)} .annot{font-size:9px;margin-top:5px;color:var(--bone-2);border-left-color:var(--line-2)!important}
     .ladder,.scopes{font-size:8.5px;gap:5px;margin:3px 0} .ladder span,.scopes span{padding:2px 6px} .ladder-cap{font-size:8px;margin:0 0 5px}
+    .scopes span.hl{color:var(--bone-2)!important;border-color:var(--line-2)!important}
     .src{font-size:7.5px;padding:0 4px;border-color:var(--line);margin-left:5px}
     .era-banner.tw{margin:6px 0 8px;padding:6px 0} .tw-plate{padding:5px 9px;border:1px solid #d9d3c4;box-shadow:none} .tw-logo{height:15px} .tw-role{font-size:9px;margin-top:5px} .tw-note{font-size:8.5px;margin-top:3px}
-    .tw-era{background:#fff!important;border-left:2px solid var(--tw-coral);border-radius:0} .tw-era::before{display:none} .tw-also{font-size:8.5px;margin:4px 0}
-    .ctas{margin-top:7px;gap:6px} .cta{font-size:9px;padding:4px 8px}
+    .tw-era::before{display:none} .tw-also{font-size:8.5px;margin:4px 0;color:var(--dim)}
+    .ctas{margin-top:7px;gap:6px} .cta{font-size:9px;padding:4px 8px;border-color:var(--line-2)!important;color:var(--bone-2)!important}
+    /* print: the git graph is hidden, so its branch labels are orphaned decoration — drop them, keep the career */
+    .gref{display:none!important}
+    .main-tag,.closing-note{display:none!important}
+    .forged::before{content:""!important;margin:0!important}
+    .tag{border:none!important;padding:0!important;background:none!important;color:var(--dim)!important;text-transform:none!important;letter-spacing:0}
     /* capstone: solid tiles, no white-on-white */
     .capstone{border-color:var(--line-2);break-inside:avoid;margin-top:4px}
     .speci{display:none}
