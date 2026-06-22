@@ -677,6 +677,7 @@
     var mx=-99999,my=-99999,rect=null;
     var PR=PRED, TOUCHR=PRED*1.7;   // wider flee halo for fingers (no hover lead-in)
     var AV=opts.avoidEl||null, avx=-99999, avy=-99999, avr=0;   // persistent repulsion zone (e.g. the portrait)
+    var blast=null, ringCol='232,178,58';   // one-shot click ripple: constant-speed rings from the centre, inverse-square fade
     function updAvoid(){
       if(!AV||!rect){avx=-99999;return;}
       var p=AV.getBoundingClientRect();
@@ -706,6 +707,10 @@
       grid.clear();var i,a;
       for(i=0;i<COUNT;i++){a=agents[i];var k=(((a.y/CELL)|0)+1)*GW+(((a.x/CELL)|0)+1);
         var arr=grid.get(k);if(arr)arr.push(a);else grid.set(k,[a]);}
+      // click ripple: a constant-speed leading front (from the centre out) that scatters boids as it passes
+      var bR=-1,bx=0,by=0,bKick=0;
+      if(blast){ if(++blast.t>=blast.dur){blast=null;}
+        else{var bp=blast.t/blast.dur;bR=bp*blast.maxR;bx=blast.x;by=blast.y;bKick=1-bp;} }
       for(i=0;i<COUNT;i++){a=agents[i];var cx=(a.x/CELL)|0,cy=(a.y/CELL)|0,ax=0,ay=0,cxs=0,cys=0,sx=0,sy=0,n=0;
         for(var ox=-1;ox<=1;ox++)for(var oy=-1;oy<=1;oy++){var bk=grid.get(((cy+oy)+1)*GW+((cx+ox)+1));if(!bk)continue;
           for(var j=0;j<bk.length;j++){var b=bk[j];if(b===a)continue;var dx=b.x-a.x,dy=b.y-a.y,d2=dx*dx+dy*dy;
@@ -717,6 +722,9 @@
           if(pd2<PR*PR&&pd2>0.01){var pd=Math.sqrt(pd2),pf=1-pd/PR;a.vx+=(pdx/pd)*pf*FLEEF;a.vy+=(pdy/pd)*pf*FLEEF;if(pf>a.flee)a.flee=pf;}}
         if(AV&&avx>-9000){var adx=a.x-avx,ady=a.y-avy,ad2=adx*adx+ady*ady;
           if(ad2<avr*avr&&ad2>0.01){var ad=Math.sqrt(ad2),af=1-ad/avr;a.vx+=(adx/ad)*af*FLEEF;a.vy+=(ady/ad)*af*FLEEF;var aff=af*0.55;if(aff>a.flee)a.flee=aff;}}
+        if(bR>0){var bdx=a.x-bx,bdy=a.y-by,bd2b=bdx*bdx+bdy*bdy;
+          if(bd2b>1){var bd=Math.sqrt(bd2b),fd=bd-bR;          // fd<0 = inside the front, >0 = just ahead of it
+            if(fd<26&&fd>-120){var bi=1/bd,kk=0.3+bKick*0.8;a.vx+=bdx*bi*kk;a.vy+=bdy*bi*kk;var ff=0.5+bKick*0.45;if(ff>a.flee)a.flee=ff;}}}
         var sp=Math.sqrt(a.vx*a.vx+a.vy*a.vy);
         if(sp>0){var t=a.cruise*(1+a.flee*PANIC);a.vx=a.vx/sp*t;a.vy=a.vy/sp*t;}
         a.flee*=0.94;
@@ -739,6 +747,12 @@
           var spr=pan?sprR:(fast?sprG:sprT),sz2=(pan?10:(fast?9:7))*SZK;ctx.drawImage(spr,a.x-sz2/2,a.y-sz2/2,sz2,sz2);
         }
       }
+      if(blast){ctx.globalCompositeOperation='screen';var bp2=blast.t/blast.dur,env=(1-bp2)*(1-bp2),mr=blast.maxR,gc='rgba('+ringCol+',';
+        // a train of concentric rings, each born at the centre and dimming by inverse-square as it spreads (like water)
+        for(var rk=0;rk<7;rk++){var pr=bp2-rk*0.13;if(pr<=0)continue;var rr=pr*mr;if(rr<2)continue;
+          var q=rr/120,al=env*(1/(1+q*q))*0.95;if(al<0.004)continue;
+          ctx.lineWidth=2;ctx.strokeStyle=gc+al.toFixed(3)+')';ctx.beginPath();ctx.arc(blast.x,blast.y,rr,0,6.2832);ctx.stroke();
+          ctx.lineWidth=7;ctx.strokeStyle=gc+(al*0.2).toFixed(3)+')';ctx.beginPath();ctx.arc(blast.x,blast.y,rr,0,6.2832);ctx.stroke();}}
     }
     var running=false,raf=0;
     function frame(){if(!running)return;step();draw();if(TEST)__frames++;raf=requestAnimationFrame(frame);}
@@ -748,6 +762,7 @@
     var __api={resize:resize,play:play,pause:pause,
       isRunning:function(){return running;},
       avoid:function(){return {x:avx,y:avy,r:avr};},
+      blast:function(cx,cy,col){if(reduce)return;blast={x:cx,y:cy,t:0,dur:185,maxR:Math.max(W,H)*0.62};ringCol=col||'232,178,58';},
       agents:function(){return agents;},
       count:function(){return COUNT;}};
     if(TEST)window.__cv.flocks.push(__api);
@@ -774,6 +789,11 @@
     var heroFlock=Flock(heroC,{density:850,maxN:1400,max:0.8,minSpeed:0.12,fade:0.45,fast:0.62,predator:true,predR:130,fleeForce:0.9,panic:1.9,avoidEl:document.querySelector('.portrait'),
       composite:'screen',sizeScale:0.82,
       spriteColors:['rgba(159,176,174,0.42)','rgba(236,230,216,0.5)','rgba(236,230,216,0.62)']});
+    var pf=document.querySelector('.portrait');
+    if(pf&&!reduce){pf.style.cursor='pointer';var lastB=0;
+      pf.addEventListener('pointerdown',function(e){var t=e.timeStamp||0;if(t-lastB<340)return;lastB=t;
+        var pr=pf.getBoundingClientRect(),cr=heroC.getBoundingClientRect();if(pr.width<2)return;   // fresh centre (the flock's cached avoid zone can be stale after reflow)
+        heroFlock.blast(pr.left+pr.width/2-cr.left,pr.top+pr.height/2-cr.top,'232,178,58');},{passive:true});}
     if('IntersectionObserver' in window && !reduce){
       new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)heroFlock.play();else heroFlock.pause();});},{threshold:0}).observe(heroC);
     }
