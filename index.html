@@ -810,6 +810,30 @@
 })();
 (function(){
   "use strict";
+  // Responsive nestle: keep the hero sphere anchored a proportional gutter from the intro
+  // paragraph's right edge, top on the line's cap-height — holding on resize until it's hidden
+  // at the mobile breakpoint. The CSS transform on .portrait is the no-JS fallback.
+  var pf=document.querySelector('.portrait'), sub=document.querySelector('.hero-sub');
+  if(!pf||!sub) return;
+  var raf=0;
+  function place(){
+    raf=0;
+    if(window.innerWidth<=820){ pf.style.transform=''; return; }   // hidden on mobile — leave it to CSS
+    pf.style.transform='none';                                      // measure the natural grid position
+    var p=pf.getBoundingClientRect(), s=sub.getBoundingClientRect();
+    if(p.width<2||s.width<2){ pf.style.transform=''; return; }
+    var fs=parseFloat(getComputedStyle(sub).fontSize)||17;
+    var dx=(s.right + fs*1.15) - p.left;                            // ≈20px gutter at full size, proportional as the type scales
+    var dy=(s.top + fs*0.8) - p.top;                                // sphere top onto the "I've come to believe…" cap-height
+    pf.style.transform='translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px)';
+  }
+  function schedule(){ if(!raf) raf=requestAnimationFrame(place); }
+  place();
+  window.addEventListener('resize', schedule, {passive:true});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(place);
+})();
+(function(){
+  "use strict";
   var col=document.querySelector('.spine-col'), svg=document.querySelector('.gitgraph');
   if(!col||!svg) return;
   var L=[16,48,80], R=6.5, GOLD='#E8B23A', TEAL='#3FE0C8', CORAL='#f2617a', GREEN='#3FB950', BG='#0A0F11';
