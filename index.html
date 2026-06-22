@@ -818,23 +818,23 @@
     // newest-first (git log): present at the TOP, root at the bottom.
     var EL=16;                                             // fixed junction elbow: every fork/merge is the same short diagonal (GitHub-style)
     var mTop=_top('c-schroders')-14;                       // live end of main, above HEAD
-    var gFork=Y['c-genius']+EL;                            // teal fork: one elbow-step below genius
-    var gMerge=Y['c-msc']-EL;                              // teal merge: one elbow-step above msc
+    var gFork=_bot('c-genius')-EL;                        // teal fork: at the era's OLDER edge (bottom of genius)
+    var gMerge=Y['c-msc']-EL;                             // teal merge: into main at the msc commit (newest, top)
     var twTop=Y['c-tw']-EL, twBot=_bot('c-ho')+4;          // coral: tw banner (top) → ho (bottom)
-    var sFork=Y['c-schroders']+EL;                         // green fork: one elbow-step below HEAD
+    var sFork=_bot('c-schroders')-EL;                     // green fork: at the era's OLDER edge (bottom of Schroders)
     var p=[];
     p.push(vl(L[0],mTop,Y['c-cardiff'],GOLD,3));           // gold main: present(top) → root(bottom)
     p.push(sparkTip(L[0],mTop,GOLD));                      // main is still live — ember at the top
-    p.push(cv(L[0],gFork,L[1],Y['c-genius'],TEAL));
-    p.push(vl(L[1],Y['c-genius'],Y['c-msc'],TEAL));
-    p.push(cv(L[1],Y['c-msc'],L[0],gMerge,TEAL));
+    p.push(cv(L[0],_bot('c-genius'),L[1],gFork,TEAL));    // diverge at the era's older edge (genius bottom)
+    p.push(vl(L[1],gFork,Y['c-msc'],TEAL));               // branch spans the full genius era up to the msc commit
+    p.push(cv(L[1],Y['c-msc'],L[0],gMerge,TEAL));         // merge back into main at the msc commit (top)
     p.push(cv(L[0],twTop,L[1],Y['c-tw'],CORAL));
     p.push(vl(L[1],Y['c-tw'],twBot,CORAL));
     p.push(cv(L[1],twBot,L[0],twBot+EL,CORAL));
     ['c-sims','c-bmmro','c-ho'].forEach(function(id){var t=_top(id);var b=_bot(id)-28;p.push(cv(L[1],t,L[2],t+EL,CORAL));p.push(vl(L[2],t+EL,b,CORAL));p.push(cv(L[2],b,L[1],b+EL,CORAL));});
-    p.push(cv(L[0],sFork,L[1],Y['c-schroders'],GREEN));
+    p.push(cv(L[0],_bot('c-schroders'),L[1],sFork,GREEN)); // diverge at the era's older edge (Schroders bottom)
     var tipY=mTop;                                         // green HEAD ember at the very top
-    p.push(vl(L[1],Y['c-schroders'],tipY,GREEN));
+    p.push(vl(L[1],sFork,tipY,GREEN));                     // branch spans the full Schroders era up to HEAD
     p.push(sparkTip(L[1],tipY,GREEN));
     p.push('<text x="'+(L[1]+16)+'" y="'+(tipY+4)+'" fill="'+GREEN+'" font-family="JetBrains Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.3">· in progress</text>');
     p.push(nd(L[0],Y['c-cardiff'],GOLD,{hollow:true,dash:true}));
