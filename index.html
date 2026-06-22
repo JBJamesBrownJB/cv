@@ -314,9 +314,10 @@
     .anchor{padding:6px 9px} .anchor .v{font-size:16px} .legend{margin-top:9px;gap:11px}
     /* contact links: on paper, read clearly as links (no inert pills); the footer block spells out every destination */
     .links{margin-top:10px;gap:4px 14px}
-    .links a{padding:0;border:none!important;border-radius:0;font-size:9px;color:var(--teal-deep)!important}
+    .links a{padding:0;border:none!important;border-radius:0;font-size:9px;color:var(--teal-deep)!important;text-decoration:underline!important;text-decoration-color:var(--teal-deep)!important;text-decoration-thickness:.6px;text-underline-offset:2px}
     .links a::before{display:none!important}
-    footer .links a::after{font-family:var(--mono);font-size:8.5px;color:var(--dim);font-weight:400}
+    /* the spelled-out URL is part of the same link affordance — keep it underlined too, so the link reads as a link by shape, not colour (WCAG 1.4.1) */
+    footer .links a::after{font-family:var(--mono);font-size:8.5px;color:var(--dim);font-weight:400;text-decoration:underline;text-decoration-color:var(--dim);text-decoration-thickness:.6px;text-underline-offset:2px}
     footer .links a[href*="linkedin"]::after{content:" linkedin.com/in/james-brown-6aa64923"}
     footer .links a[href*="github.com/JBJamesBrownJB"]::after{content:" github.com/JBJamesBrownJB"}
     footer .links a[href*="medium.com"]::after{content:" medium.com/@jameskinnahbrown"}
