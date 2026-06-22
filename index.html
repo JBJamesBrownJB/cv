@@ -878,7 +878,7 @@
       var X=14, tip=_top('c-schroders')-14;
       var sp=[vl(X,tip,Y['c-cardiff'],GOLD,3)];
       var COL={'c-cardiff':GOLD,'c-betfair':GOLD,'c-genius':TEAL,'c-msc':TEAL,'c-tw':CORAL,'c-ho':CORAL,'c-bmmro':CORAL,'c-sims':CORAL,'c-schroders':GREEN};
-      IDS.forEach(function(id){sp.push(nd(X,Y[id],COL[id],{hollow:(id==='c-cardiff'||id==='c-msc'),dash:id==='c-cardiff',r:id==='c-schroders'?7.5:R}));});
+      IDS.forEach(function(id){if(id==='c-schroders')return;sp.push(nd(X,Y[id],COL[id],{hollow:(id==='c-cardiff'||id==='c-msc'),dash:id==='c-cardiff'}));});   // Schroders is the live HEAD — spark only, no node (matches desktop)
       sp.push(sparkTip(X,tip,GREEN));
       svg.innerHTML=sp.join(''); return;
     }
