@@ -96,7 +96,9 @@
   .links a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
   .links a.dl{border-color:var(--gold-deep)}
   .links a.dl::before{background:var(--gold);box-shadow:0 0 8px var(--gold)}
-  @media print{.links a.dl{display:none!important}}
+  /* the web-view link is the print-side mirror of the PDF download: hidden on screen (you're already here), shown on paper */
+  .links a.web{display:none}
+  @media print{.links a.dl{display:none!important}.links a.web{display:inline-flex!important}}
   .portrait{position:relative;width:clamp(116px,14vw,178px);aspect-ratio:1;flex:none}
   .portrait img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:1px solid var(--line-2)}
   .portrait::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1px solid var(--teal);opacity:.5;-webkit-mask:radial-gradient(closest-side,transparent 92%,#000 93%);mask:radial-gradient(closest-side,transparent 92%,#000 93%);transition:opacity .25s,border-color .25s}
@@ -326,6 +328,7 @@
     footer .links a[href*="github.com/JBJamesBrownJB"]::after{content:" github.com/JBJamesBrownJB"}
     footer .links a[href*="medium.com"]::after{content:" medium.com/@jameskinnahbrown"}
     footer .links a[href^="mailto:"]::after{content:" jameskinnahbrown@gmail.com"}
+    footer .links a[href*="jbjamesbrownjb.github.io"]::after{content:" jbjamesbrownjb.github.io/cv"}
     /* on paper these run full-width like the body content, not in a narrow ch-capped column */
     .colophon{max-width:none} .book{max-width:none}
     /* journey: KILL the section-level break rule; let it flow, butt the stations */
@@ -408,6 +411,7 @@
               <a href="https://medium.com/@jameskinnahbrown" target="_blank" rel="noopener noreferrer">Medium</a>
               <a href="mailto:jameskinnahbrown@gmail.com">Email</a>
               <a class="dl" href="JB_CV.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download CV as PDF"><span aria-hidden="true">↓</span> PDF</a>
+              <a class="web" href="https://jbjamesbrownjb.github.io/cv/" target="_blank" rel="noopener noreferrer" aria-label="View the interactive CV online"><span aria-hidden="true">↗</span> Web version</a>
             </nav>
           </div>
           <div class="portrait"><div class="p3d"><canvas id="head3d" aria-hidden="true"></canvas><img src="images/3djb.png" alt="" width="178" height="178" decoding="async" /></div><span class="sig" aria-hidden="true">JB</span></div>
@@ -606,6 +610,7 @@
             <a href="https://medium.com/@jameskinnahbrown" target="_blank" rel="noopener noreferrer">Medium</a>
             <a href="mailto:jameskinnahbrown@gmail.com">Email</a>
             <a class="dl" href="JB_CV.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download CV as PDF"><span aria-hidden="true">↓</span> PDF</a>
+            <a class="web" href="https://jbjamesbrownjb.github.io/cv/" target="_blank" rel="noopener noreferrer" aria-label="View the interactive CV online"><span aria-hidden="true">↗</span> Web version</a>
           </nav>
           <div class="book">
             <a class="book-cover" href="https://facilitatingsoftwarearchitecture.com/" target="_blank" rel="noopener noreferrer"><img src="images/book.jpg" alt="Facilitating Software Architecture — book cover" width="60" height="79" decoding="async" /></a>
