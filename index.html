@@ -970,7 +970,7 @@
 
   function fit(){ var r = host.getBoundingClientRect(); if(r.width<2) return; renderer.setSize(r.width, r.height, false); cam.aspect = r.width/r.height; cam.updateProjectionMatrix(); }
 
-  new GLTFLoader().load('models/jb.glb', function(gltf){
+  new GLTFLoader().load('models/capybara.glb', function(gltf){
     var model = gltf.scene;
     var box = new THREE.Box3().setFromObject(model);
     var s = box.getSize(new THREE.Vector3());
